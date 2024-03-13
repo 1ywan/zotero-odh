@@ -89,6 +89,7 @@
 .odh-playaudio {
   cursor: pointer;
   margin: 0 3px;
+  content: url("chrome://zodh/content/fg/img/play.png")
 }
 
 .odh-playsound {

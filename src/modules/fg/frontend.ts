@@ -421,9 +421,10 @@ export class ZODHFront {
       if (note.audios) {
         for (const [dindex, audio] of note.audios.entries()) {
           if (audio)
-            audiosegment += `<img class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}" src="${
-              rootURI + "fg/img/play.png"
-            }"/>`;
+            // audiosegment += `<img class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}" src="${
+            //   rootURI + "fg/img/play.png"
+            // }"/>`;
+            audiosegment += `<img class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}"/>`;
         }
       }
       content += `

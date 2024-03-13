@@ -10,4 +10,5 @@ div#odh-popup {
     visibility: hidden;
     width: 400px;
     z-index: 2147483647;
+    overflow: auto;
 }  
