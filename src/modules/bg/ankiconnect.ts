@@ -4,42 +4,44 @@ export class Ankiconnect {
     this.version = 6;
   }
 
-  async ankiInvoke(action, params = {}, timeout = 3000) {
+  async ankiInvoke(action: string, params = {}, timeout = 3000) {
     const version = this.version;
     const request = { action, version, params };
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url: "http://127.0.0.1:8765",
-        type: "POST",
-        data: JSON.stringify(request),
-        timeout,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: (response) => {
-          try {
-            if (Object.getOwnPropertyNames(response).length != 2) {
-              throw "response has an unexpected number of fields";
-            }
-            if (!response.hasOwnProperty("error")) {
-              throw "response is missing required error field";
-            }
-            if (!response.hasOwnProperty("result")) {
-              throw "response is missing required result field";
-            }
-            if (response.error) {
-              throw response.error;
-            }
-            resolve(response.result);
-          } catch (e) {
-            reject(e);
-          }
+    const raw_response = await Zotero.HTTP.request(
+      "POST",
+      "http://127.0.0.1:8765",
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
-        error: (xhr, status, err) => resolve(null),
-      });
+        body: JSON.stringify(request),
+        responseType: "json",
+      },
+    );
+    const response = raw_response.response;
+    // return response?.response;
+    return new Promise((resolve, reject) => {
+      try {
+        if (Object.getOwnPropertyNames(response).length != 2) {
+          throw "response has an unexpected number of fields";
+        }
+        if (!response.hasOwnProperty("error")) {
+          throw "response is missing required error field";
+        }
+        if (!response.hasOwnProperty("result")) {
+          throw "response is missing required result field";
+        }
+        if (response.error) {
+          throw response.error;
+        }
+        resolve(response.result);
+      } catch (e) {
+        reject(e);
+      }
     });
   }
 
-  async addNote(note) {
+  async addNote(note: string) {
     if (note) return await this.ankiInvoke("addNote", { note });
     else return Promise.resolve(null);
   }

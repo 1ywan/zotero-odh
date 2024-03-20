@@ -173,7 +173,7 @@ export class ODHBack {
     const options = sanitizeOptions(null);
 
     // this.ankiweb.initConnection(options);
-
+    options.services = "ankiconnect";
     this.opt_optionsChanged(options);
   }
 
@@ -206,10 +206,9 @@ export class ODHBack {
   //   }
 
   //   // front end message handler
-  //   async api_isConnected(params) {
-  //     const callback = params.callback;
-  //     callback(await this.opt_getVersion());
-  //   }
+  async api_isConnected() {
+    return await this.opt_getVersion();
+  }
 
   async api_getTranslation(expression: string) {
     // Fix https://github.com/ninja33/ODH/issues/97
@@ -319,9 +318,9 @@ export class ODHBack {
   //     return this.target ? await this.target.getModelFieldNames(modelName) : null;
   //   }
 
-  //   async opt_getVersion() {
-  //     return this.target ? await this.target.getVersion() : null;
-  //   }
+  async opt_getVersion() {
+    return this.target ? await this.target.getVersion() : null;
+  }
 
   // Sandbox communication start here
   async loadScripts(list: string[]) {
