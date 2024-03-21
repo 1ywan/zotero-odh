@@ -75,6 +75,11 @@
   float: right;
 }
 
+.odh-addnote {
+  content: url("chrome://zodh/content/fg/img/plus.png")
+}
+
+
 .odh-addnote-disabled{
   cursor: not-allowed;
   opacity:0.5;

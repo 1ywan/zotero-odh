@@ -281,7 +281,9 @@ export class ZODHFront {
 
   async renderPopup(notes: any[]) {
     let content = "";
-    const services = this.options ? this.options.services : "";
+    // const services = this.options ? this.options.services : "";
+    const services = "ankiconnect";
+
     let image = "";
     let imageclass = "";
     if (services != "none") {
@@ -314,9 +316,7 @@ export class ZODHFront {
         const button =
           services == "none" || services == ""
             ? ""
-            : `<img ${imageclass} data-nindex="${nindex}" data-dindex="${dindex}" src="${
-                rootURI + "fg/img/" + image
-              }" />`;
+            : `<img ${imageclass} data-nindex="${nindex}" data-dindex="${dindex}"/>`;
         content += `<div class="odh-definition">${button}${definition}</div>`;
       }
       content += "</div>";
