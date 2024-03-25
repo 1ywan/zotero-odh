@@ -26,22 +26,17 @@ function registerAddNoteLinks() {
   }
 }
 
-function registerAudioLinks() {
-  for (const link of document.getElementsByClassName("odh-playaudio")) {
+export function registerAudioLinks(doc: Document) {
+  for (const link of doc.getElementsByClassName("odh-playaudio")) {
     link.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
-      const ds = e.currentTarget.dataset;
-      window.parent.postMessage(
-        {
-          action: "playAudio",
-          params: {
-            nindex: ds.nindex,
-            dindex: ds.dindex,
-          },
-        },
-        "*",
-      );
+      if (e.currentTarget == null) return;
+      const ds = (e.currentTarget as HTMLDivElement).dataset;
+      Zotero.ZODH.data.fg.api_playAudio({
+        nindex: ds.nindex,
+        dindex: ds.dindex,
+      });
     });
   }
 }

@@ -1,5 +1,6 @@
 import { config } from "../../package.json";
 import { renderPopup } from "./fg/popup";
+import { registerAudioLinks } from "./frame";
 // import { SVGIcon } from "../utils/config";
 // import { addTranslateAnnotationTask } from "../utils/task";
 
@@ -31,7 +32,9 @@ export function registerReaderInitializer() {
       Zotero.ZODH.data.bg
         .api_getTranslation(params.annotation.text.trim())
         .then((result: any) => {
+          Zotero.ZODH.data.fg.notes = result;
           return Zotero.ZODH.data.fg.renderPopup(result);
+
           // return renderPopup(result);
         })
         .then((content: any) => {
@@ -40,6 +43,8 @@ export function registerReaderInitializer() {
           // popup.srcdoc = content;
           // popup.src = "chrome://zodh/content/popup.html";
           popup.innerHTML = content;
+
+          registerAudioLinks(doc);
         });
 
       // setTimeout(
@@ -52,14 +57,4 @@ export function registerReaderInitializer() {
     },
     config.addonID,
   );
-
-  // Zotero.Reader.registerEventListener(
-  //   "renderTextSelectionPopup",
-  //   (event) => {
-  //     const { reader, doc, params, append } = event;
-  //     // addon.data.translate.selectedText = params.annotation.text.trim();
-  //     addon.hooks.onReaderPopupShow(event);
-  //   },
-  //   config.addonID,
-  // );
 }

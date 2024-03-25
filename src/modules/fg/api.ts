@@ -26,10 +26,6 @@ export async function addNote(notedef: any) {
   }
 }
 
-export async function playAudio(url: any) {
-  try {
-    return await sendtoBackend({ action: "playAudio", params: { url } });
-  } catch (err) {
-    return null;
-  }
+export async function playAudio(url: string) {
+  await Zotero.ZODH.data.bg.api_playAudio(url);
 }
