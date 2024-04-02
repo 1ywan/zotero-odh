@@ -1,5 +1,21 @@
 <linkset>
   <html:link rel="localization" href="__addonRef__-preferences.ftl" />
+  <html:link
+    rel="stylesheet"
+    href="chrome://__addonRef__/content/tabmenu.css"
+  />
+  <html:link
+    rel="stylesheet"
+    href="chrome://__addonRef__/content/checkbox.css"
+  />
+  <html:link
+    rel="stylesheet"
+    href="chrome://__addonRef__/content/scriptlist.css"
+  />
+  <html:link
+    rel="stylesheet"
+    href="chrome://__addonRef__/content/options.css"
+  />
 </linkset>
 <vbox
   id="zotero-prefpane-__addonRef__"
@@ -18,33 +34,40 @@
         </span>
       </html:h2>
     </label>
-    <vbox>
-      <hbox class="leftpanel">
-        <label data-i18n="lblEnabled">Enable/Disable</label>
-        <checkbox label="enabled" native="true" />
-        <label data-i18n="lblMouseselection">Enable/Disable</label>
-        <div class="enabled">
-          <input type="checkbox" value="true" id="mouseselection" />
-          <label for="mouseselection"></label>
-        </div>
-      </hbox>
+    <hbox>
+      <vbox class="leftpanel">
+        <hbox>
+          <label data-i18n="lblEnabled" class="label">Enable/Disable</label>
+          <div class="enabled">
+            <input type="checkbox" value="true" id="enabled" />
+            <label for="enabled"></label>
+          </div>
+        </hbox>
+        <hbox>
+          <label data-i18n="lblMouseselection" class="label"
+            >Enable/Disable</label
+          >
+          <div class="enabled">
+            <input type="checkbox" value="true" id="mouseselection" />
+            <label for="mouseselection"></label>
+          </div>
+        </hbox>
+      </vbox>
+      <vbox>
+        <hbox class="rightpanel">
+          <label data-i18n="lblHotkey" class="label">AuoSel. HotKey</label>
 
-      <hbox class="rightpanel">
-        <label data-i18n="lblHotkey">AuoSel. HotKey</label>
-        <menulist native="true">
-          <menupopup>
-            <menuitem label="Off" />
-            <menuitem label="Shift" />
-          </menupopup>
-        </menulist>
-        <!-- <select id="hotkey">
-                    <option value="0">Off</option>
-                    <option value="16">Shift</option>
-                    <option value="17">Ctrl</option>
-                    <option value="18">Alt</option>
-                </select> -->
-      </hbox>
-    </vbox>
+          <menulist native="true" class="select">
+            <menupopup id="hotkey">
+              <menuitem label="Off" value="0" />
+              <menuitem label="Shift" value="16" />
+              <menuitem label="Ctrl" value="17" />
+              <menuitem label="Alt" value="18" />
+            </menupopup>
+          </menulist>
+        </hbox>
+      </vbox>
+    </hbox>
   </groupbox>
 
   <groupbox>
@@ -54,8 +77,10 @@
       </html:h2>
     </label>
     <hbox>
-      <label for="dict" data-i18n="lblCurrentDict">Dictionary</label>
-      <menulist native="true">
+      <label for="dict" data-i18n="lblCurrentDict" class="label"
+        >Dictionary</label
+      >
+      <menulist native="true" class="select col-3x">
         <menupopup>
           <menuitem label="encn-Default" />
         </menupopup>
@@ -64,44 +89,52 @@
                 <option value="encn-Default">encn-Default</option>
             </select> -->
     </hbox>
-    <vbox>
-      <hbox>
-        <label data-i18n="lblLingualType">Mono/Bilingual Dict.</label>
-        <menulist native="true">
-          <menupopup>
-            <menuitem label="Bilingual" />
-            <menuitem label="Monolingual" />
-          </menupopup>
-        </menulist>
-      </hbox>
-      <hbox>
-        <label data-i18n="lblAudioPref">Pref. Audio</label>
-        <menulist native="true">
-          <menupopup>
-            <menuitem label="#0" />
-            <menuitem label="#1" />
-          </menupopup>
-        </menulist>
-      </hbox>
-      <hbox>
-        <label data-i18n="lblMaxContext">Max. Context #</label>
-        <menulist native="true">
-          <menupopup>
-            <menuitem label="1" />
-            <menuitem label="2" />
-            <menuitem label="3" />
-          </menupopup>
-        </menulist>
-        <label data-i18n="lblMaxExample">Max. Example #</label>
-        <menulist native="true">
-          <menupopup>
-            <menuitem label="0" />
-            <menuitem label="1" />
-            <menuitem label="2" />
-          </menupopup>
-        </menulist>
-      </hbox>
-    </vbox>
+    <hbox>
+      <vbox>
+        <hbox>
+          <label data-i18n="lblLingualType" class="label"
+            >Mono/Bilingual Dict.</label
+          >
+          <menulist native="true" class="select">
+            <menupopup>
+              <menuitem label="Bilingual" />
+              <menuitem label="Monolingual" />
+            </menupopup>
+          </menulist>
+        </hbox>
+        <hbox>
+          <label data-i18n="lblAudioPref" class="label">Pref. Audio</label>
+          <menulist native="true" class="select">
+            <menupopup>
+              <menuitem label="#0" />
+              <menuitem label="#1" />
+            </menupopup>
+          </menulist>
+        </hbox>
+      </vbox>
+      <vbox>
+        <hbox>
+          <label data-i18n="lblMaxContext" class="label">Max. Context #</label>
+          <menulist native="true" class="select">
+            <menupopup>
+              <menuitem label="1" />
+              <menuitem label="2" />
+              <menuitem label="3" />
+            </menupopup>
+          </menulist>
+        </hbox>
+        <hbox>
+          <label data-i18n="lblMaxExample" class="label">Max. Example #</label>
+          <menulist native="true" class="select">
+            <menupopup>
+              <menuitem label="0" />
+              <menuitem label="1" />
+              <menuitem label="2" />
+            </menupopup>
+          </menulist>
+        </hbox>
+      </vbox>
+    </hbox>
   </groupbox>
 
   <groupbox>
@@ -117,19 +150,19 @@
     </label>
 
     <hbox>
-      <label data-i18n="lblServices">Services</label>
-      <menulist>
+      <label data-i18n="lblServices" class="label">Services</label>
+      <menulist class="select col-2x">
         <menupopup>
           <menuitem value="none">None</menuitem>
           <menuitem value="ankiconnect">Ankiconnect</menuitem>
           <menuitem value="ankiweb">Ankiweb</menuitem>
         </menupopup>
       </menulist>
-      <label id="services-status">Anki Status</label>
+      <label id="services-status" class="label">Anki Status</label>
     </hbox>
-    <div id="user-options">
+    <div id="user-options" class="hidden">
       <vbox>
-        <label data-i18n="lblUsername">ID</label>
+        <label data-i18n="lblUsername" class="label">ID</label>
         <html:input
           type="text"
           id="id"
@@ -144,7 +177,7 @@
             >?</html:a
           >
         </label>
-        <label data-i18n="lblPassword">Password</label>
+        <label data-i18n="lblPassword" class="label">Password</label>
         <html:input
           type="password"
           id="password"
@@ -156,64 +189,81 @@
     </div>
     <vbox id="anki-options">
       <hbox>
-        <label data-i18n="lblDeckname">Deck Name</label>
-        <menulist id="deckname"></menulist>
+        <label data-i18n="lblDeckname" class="label">Deck Name</label>
+        <menulist id="deckname" class="select col-3x"></menulist>
       </hbox>
       <hbox>
-        <label data-i18n="lblTypename">Type Name</label>
-        <menulist id="typename"></menulist>
+        <label data-i18n="lblTypename" class="label">Type Name</label>
+        <menulist id="typename" class="select col-3x"></menulist>
       </hbox>
       <hbox>
         <vbox>
           <hbox>
-            <label for="expression" data-i18n="lblExpression">Expression</label>
-            <menulist id="expression"></menulist>
+            <label for="expression" data-i18n="lblExpression" class="label"
+              >Expression</label
+            >
+            <menulist id="expression" class="select"></menulist>
           </hbox>
           <hbox>
-            <label for="reading" data-i18n="lblReading">Reading</label>
-            <menulist id="reading"></menulist>
+            <label for="reading" data-i18n="lblReading" class="label"
+              >Reading</label
+            >
+            <menulist id="reading" class="select"></menulist>
           </hbox>
           <hbox>
-            <label for="definition" data-i18n="lblDefinition">Definition</label>
-            <menulist id="definition"></menulist>
-          </hbox>
-          <hbox>
-            <label for="definitions" data-i18n="lblDefinitions"
+            <label for="definition" data-i18n="lblDefinition" class="label"
               >Definition</label
             >
-            <menulist id="definitions"></menulist>
+            <menulist id="definition" class="select"></menulist>
+          </hbox>
+          <hbox>
+            <label for="definitions" data-i18n="lblDefinitions" class="label"
+              >Definition</label
+            >
+            <menulist id="definitions" class="select"></menulist>
           </hbox>
         </vbox>
         <vbox>
           <hbox>
-            <label for="sentence" data-i18n="lblSentence">Sentence</label>
-            <menulist id="sentence"></menulist>
+            <label for="sentence" data-i18n="lblSentence" class="label"
+              >Sentence</label
+            >
+            <menulist id="sentence" class="select"></menulist>
           </hbox>
           <hbox>
-            <label for="extrainfo" data-i19n="lblExtrainfo">Extrainfo</label>
-            <menulist id="extrainfo"></menulist>
+            <label for="extrainfo" data-i18n="lblExtrainfo" class="label"
+              >Extrainfo</label
+            >
+            <menulist id="extrainfo" class="select"></menulist>
           </hbox>
 
           <hbox>
-            <label for="url" data-i18n="lblUrl">URL</label>
-            <menulist id="url"></menulist>
+            <label for="url" data-i18n="lblUrl" class="label">URL</label>
+            <menulist id="url" class="select"></menulist>
           </hbox>
 
           <hbox>
-            <label for="audio" data-i18n="lblAudio">Audio</label>
-            <menulist id="audio"></menulist>
+            <label for="audio" data-i18n="lblAudio" class="label">Audio</label>
+            <menulist id="audio" class="select"></menulist>
           </hbox>
         </vbox>
       </hbox>
       <hbox>
-        <label data-i18n="lblTags">Tags Name</label>
-        <html:input type="text" id="tags" placeholder="Tags" class="col-3x" />
+        <label data-i18n="lblTags" class="label">Tags Name</label>
+        <html:input
+          type="text"
+          id="tags"
+          placeholder="Tags"
+          class="col-3x input"
+        />
       </hbox>
     </vbox>
     <vbox id="duplicate-option">
       <hbox>
-        <label data-i18n="lblAllowDuplicate">Allow Duplicate</label>
-        <menulist id="duplicate" class="col-3x">
+        <label data-i18n="lblAllowDuplicate" class="label"
+          >Allow Duplicate</label
+        >
+        <menulist id="duplicate" class="select col-3x">
           <menupopup>
             <menuitem value="0" data-i18n="selNotAllowed">Not Allowed</menuitem>
             <menuitem value="1" data-i18n="selAllowed">Allowed</menuitem>
@@ -235,8 +285,10 @@
         </span>
       </html:h2>
     </label>
-    <hbox>
-      <html:label data-i18n="lblUdfScripts">UDF Scripts Name</html:label>
+    <hbox class="crosspanel">
+      <html:label data-i18n="lblUdfScripts" class="label"
+        >UDF Scripts Name</html:label
+      >
       <html:input
         type="text"
         id="udfscripts"
@@ -256,7 +308,9 @@
         </html:h2>
       </label>
       <hbox>
-        <html:label data-i18n="lblSysScripts">SYS Scripts Name</html:label>
+        <html:label data-i18n="lblSysScripts" class="label"
+          >SYS Scripts Name</html:label
+        >
         <html:input
           type="text"
           id="sysscripts"
@@ -275,15 +329,17 @@
             >Script Description</span
           >
         </div>
-      </hbox>
-      <hbox class="virtualized-table-container" flex="1" height="300px">
-        <html:div id="__addonRef__-table-container" />
+        <div class="scriptlistwrapper">
+          <div id="scriptslistbody" class="sl-body"></div>
+        </div>
       </hbox>
     </vbox>
   </groupbox>
   <groupbox>
-    <vbox>
-      <button id="saveload" data-i18n="btnSaveLoad">Save and Load</button>
+    <vbox class="leftpanel" style="border-right: initial">
+      <html:label class="button" id="saveload" data-i18n="btnSaveLoad"
+        >Save and Load</html:label
+      >
       <div class="gifs">
         <span class="gif" id="gif-load">
           <img src="/fg/img/load.gif" alt="" />
@@ -296,9 +352,6 @@
         </span>
       </div>
     </vbox>
-    <hbox>
-      <button id="saveclose" data-i18n="btnSaveClose">Save and Close</button>
-    </hbox>
   </groupbox>
 </vbox>
 <vbox>
