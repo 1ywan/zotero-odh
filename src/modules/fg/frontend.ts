@@ -227,7 +227,19 @@ export class ZODHFront {
   async api_playAudio(params: { nindex: any; dindex: any }) {
     const { nindex, dindex } = params;
     const url = this.notes[nindex].audios[dindex];
-    const response = await playAudio(url);
+    for (const key in this.audios) {
+      this.audios[key].pause();
+    }
+
+    try {
+      const audio = this.audios[url] || new Audio(url);
+      audio.currentTime = 0;
+      audio.play();
+      this.audios[url] = audio;
+    } catch (err) {
+      console.error(err);
+    }
+    // const response = await playAudio(url);
   }
 
   api_playSound(params: { sound: any }) {

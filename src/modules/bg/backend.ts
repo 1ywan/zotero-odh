@@ -236,22 +236,22 @@ export class ODHBack {
   //     }
   //   }
 
-  async api_playAudio(url: string) {
-    // const { url, callback } = params;
+  // async api_playAudio(url: string) {
+  //   // const { url, callback } = params;
 
-    for (const key in this.audios) {
-      this.audios[key].pause();
-    }
+  //   for (const key in this.audios) {
+  //     this.audios[key].pause();
+  //   }
 
-    try {
-      const audio = this.audios[url] || new Audio(url);
-      audio.currentTime = 0;
-      audio.play();
-      this.audios[url] = audio;
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  //   try {
+  //     const audio = this.audios[url] || new Audio(url);
+  //     audio.currentTime = 0;
+  //     audio.play();
+  //     this.audios[url] = audio;
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 
   // Option page and Brower Action page requests handlers.
   async opt_optionsChanged(options: { [key: string]: any }) {

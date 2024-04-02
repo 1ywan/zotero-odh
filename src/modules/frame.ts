@@ -33,10 +33,26 @@ export function registerAudioLinks(doc: Document) {
       e.preventDefault();
       if (e.currentTarget == null) return;
       const ds = (e.currentTarget as HTMLDivElement).dataset;
-      Zotero.ZODH.data.fg.api_playAudio({
-        nindex: ds.nindex,
-        dindex: ds.dindex,
-      });
+      // Zotero.ZODH.data.fg.api_playAudio({
+      //   nindex: ds.nindex,
+      //   dindex: ds.dindex,
+      // });
+      const fg = Zotero.ZODH.data.fg;
+      const bg = Zotero.ZODH.data.bg;
+      const url = fg.notes[ds.nindex].audios[ds.dindex];
+      for (const key in fg.audios) {
+        bg.audios[key].pause();
+      }
+
+      try {
+        const audio = bg.audios[url] || doc.createElement("audio");
+        audio.src = url;
+        audio.currentTime = 0;
+        audio.play();
+        bg.audios[url] = audio;
+      } catch (err) {
+        console.error(err);
+      }
     });
   }
 }
