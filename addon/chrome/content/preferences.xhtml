@@ -24,7 +24,7 @@
   <groupbox id="zodh-prefpane-general">
     <label>
       <html:h2>
-        <span data-i18n="grpGeneral">General Options</span>
+        <span data-l10n-id="grpGeneral">General Options</span>
         <span class="option-helps">
           <html:a
             href="https://github.com/ninja33/ODH/blob/master/README.md"
@@ -37,14 +37,14 @@
     <hbox>
       <vbox class="leftpanel">
         <hbox>
-          <label data-i18n="lblEnabled" class="label">Enable/Disable</label>
+          <label data-l10n-id="lblEnabled" class="label">Enable/Disable</label>
           <div class="enabled">
             <input type="checkbox" value="true" id="enabled" />
             <label for="enabled"></label>
           </div>
         </hbox>
         <hbox>
-          <label data-i18n="lblMouseselection" class="label"
+          <label data-l10n-id="lblMouseselection" class="label"
             >Enable/Disable</label
           >
           <div class="enabled">
@@ -55,7 +55,7 @@
       </vbox>
       <vbox>
         <hbox class="rightpanel">
-          <label data-i18n="lblHotkey" class="label">AuoSel. HotKey</label>
+          <label data-l10n-id="lblHotkey" class="label">AuoSel. HotKey</label>
 
           <menulist native="true" class="select">
             <menupopup id="hotkey">
@@ -73,11 +73,11 @@
   <groupbox>
     <label>
       <html:h2>
-        <span data-i18n="grpDictionary">Dictionary Options</span>
+        <span data-l10n-id="grpDictionary">Dictionary Options</span>
       </html:h2>
     </label>
     <hbox>
-      <label for="dict" data-i18n="lblCurrentDict" class="label"
+      <label for="dict" data-l10n-id="lblCurrentDict" class="label"
         >Dictionary</label
       >
       <menulist native="true" class="select col-3x">
@@ -90,9 +90,9 @@
             </select> -->
     </hbox>
     <hbox>
-      <vbox>
+      <vbox class="leftpanel">
         <hbox>
-          <label data-i18n="lblLingualType" class="label"
+          <label data-l10n-id="lblLingualType" class="label"
             >Mono/Bilingual Dict.</label
           >
           <menulist native="true" class="select">
@@ -103,7 +103,7 @@
           </menulist>
         </hbox>
         <hbox>
-          <label data-i18n="lblAudioPref" class="label">Pref. Audio</label>
+          <label data-l10n-id="lblAudioPref" class="label">Pref. Audio</label>
           <menulist native="true" class="select">
             <menupopup>
               <menuitem label="#0" />
@@ -112,9 +112,11 @@
           </menulist>
         </hbox>
       </vbox>
-      <vbox>
+      <vbox class="rightpanel">
         <hbox>
-          <label data-i18n="lblMaxContext" class="label">Max. Context #</label>
+          <label data-l10n-id="lblMaxContext" class="label"
+            >Max. Context #</label
+          >
           <menulist native="true" class="select">
             <menupopup>
               <menuitem label="1" />
@@ -124,7 +126,9 @@
           </menulist>
         </hbox>
         <hbox>
-          <label data-i18n="lblMaxExample" class="label">Max. Example #</label>
+          <label data-l10n-id="lblMaxExample" class="label"
+            >Max. Example #</label
+          >
           <menulist native="true" class="select">
             <menupopup>
               <menuitem label="0" />
@@ -150,7 +154,7 @@
     </label>
 
     <hbox>
-      <label data-i18n="lblServices" class="label">Services</label>
+      <label data-l10n-id="lblServices" class="label">Services</label>
       <menulist class="select col-2x">
         <menupopup>
           <menuitem value="none">None</menuitem>
@@ -162,7 +166,7 @@
     </hbox>
     <div id="user-options" class="hidden">
       <vbox>
-        <label data-i18n="lblUsername" class="label">ID</label>
+        <label data-l10n-id="lblUsername" class="label">ID</label>
         <html:input
           type="text"
           id="id"
@@ -173,51 +177,51 @@
           <html:a
             href="https://ankiweb.net/account/register"
             target="_blank"
-            data-i18n="lblSignup"
+            data-l10n-id="lblSignup"
             >?</html:a
           >
         </label>
-        <label data-i18n="lblPassword" class="label">Password</label>
+        <label data-l10n-id="lblPassword" class="label">Password</label>
         <html:input
           type="password"
           id="password"
           placeholder="Ankiweb Password"
           class="col-2x"
         />
-        <label class="button" id="login" data-i18n="lblSignin">Signin</label>
+        <label class="button" id="login" data-l10n-id="lblSignin">Signin</label>
       </vbox>
     </div>
     <vbox id="anki-options">
       <hbox>
-        <label data-i18n="lblDeckname" class="label">Deck Name</label>
+        <label data-l10n-id="lblDeckname" class="label">Deck Name</label>
         <menulist id="deckname" class="select col-3x"></menulist>
       </hbox>
       <hbox>
-        <label data-i18n="lblTypename" class="label">Type Name</label>
+        <label data-l10n-id="lblTypename" class="label">Type Name</label>
         <menulist id="typename" class="select col-3x"></menulist>
       </hbox>
       <hbox>
         <vbox>
           <hbox>
-            <label for="expression" data-i18n="lblExpression" class="label"
+            <label for="expression" data-l10n-id="lblExpression" class="label"
               >Expression</label
             >
             <menulist id="expression" class="select"></menulist>
           </hbox>
           <hbox>
-            <label for="reading" data-i18n="lblReading" class="label"
+            <label for="reading" data-l10n-id="lblReading" class="label"
               >Reading</label
             >
             <menulist id="reading" class="select"></menulist>
           </hbox>
           <hbox>
-            <label for="definition" data-i18n="lblDefinition" class="label"
+            <label for="definition" data-l10n-id="lblDefinition" class="label"
               >Definition</label
             >
             <menulist id="definition" class="select"></menulist>
           </hbox>
           <hbox>
-            <label for="definitions" data-i18n="lblDefinitions" class="label"
+            <label for="definitions" data-l10n-id="lblDefinitions" class="label"
               >Definition</label
             >
             <menulist id="definitions" class="select"></menulist>
@@ -225,31 +229,33 @@
         </vbox>
         <vbox>
           <hbox>
-            <label for="sentence" data-i18n="lblSentence" class="label"
+            <label for="sentence" data-l10n-id="lblSentence" class="label"
               >Sentence</label
             >
             <menulist id="sentence" class="select"></menulist>
           </hbox>
           <hbox>
-            <label for="extrainfo" data-i18n="lblExtrainfo" class="label"
+            <label for="extrainfo" data-l10n-id="lblExtrainfo" class="label"
               >Extrainfo</label
             >
             <menulist id="extrainfo" class="select"></menulist>
           </hbox>
 
           <hbox>
-            <label for="url" data-i18n="lblUrl" class="label">URL</label>
+            <label for="url" data-l10n-id="lblUrl" class="label">URL</label>
             <menulist id="url" class="select"></menulist>
           </hbox>
 
           <hbox>
-            <label for="audio" data-i18n="lblAudio" class="label">Audio</label>
+            <label for="audio" data-l10n-id="lblAudio" class="label"
+              >Audio</label
+            >
             <menulist id="audio" class="select"></menulist>
           </hbox>
         </vbox>
       </hbox>
       <hbox>
-        <label data-i18n="lblTags" class="label">Tags Name</label>
+        <label data-l10n-id="lblTags" class="label">Tags Name</label>
         <html:input
           type="text"
           id="tags"
@@ -260,7 +266,7 @@
     </vbox>
     <vbox id="duplicate-option">
       <hbox>
-        <label data-i18n="lblAllowDuplicate" class="label"
+        <label data-l10n-id="lblAllowDuplicate" class="label"
           >Allow Duplicate</label
         >
         <menulist id="duplicate" class="select col-3x">
@@ -275,7 +281,7 @@
   <groupbox>
     <label>
       <html:h2>
-        <span data-i18n="grpUdfScripts">User-Defined Script</span>
+        <span data-l10n-id="grpUdfScripts">User-Defined Script</span>
         <span class="option-helps">
           <a
             href="https://github.com/ninja33/ODH/blob/master/doc/development.md"
@@ -286,7 +292,7 @@
       </html:h2>
     </label>
     <hbox class="crosspanel">
-      <html:label data-i18n="lblUdfScripts" class="label"
+      <html:label data-l10n-id="lblUdfScripts" class="label"
         >UDF Scripts Name</html:label
       >
       <html:input
@@ -301,14 +307,14 @@
     <vbox>
       <label>
         <html:h2>
-          <span data-i18n="grpSysScripts">System Script</span>
+          <span data-l10n-id="grpSysScripts">System Script</span>
           <span class="option-helps">
             <a id="hidden" href="#">…</a>
           </span>
         </html:h2>
       </label>
       <hbox>
-        <html:label data-i18n="lblSysScripts" class="label"
+        <html:label data-l10n-id="lblSysScripts" class="label"
           >SYS Scripts Name</html:label
         >
         <html:input
@@ -320,12 +326,12 @@
       </hbox>
       <hbox>
         <div id="scriptslisthead" class="sl-head">
-          <span class="sl-col sl-col-onoff" data-i18n="lstOnoff">OnOff</span>
-          <span class="sl-col sl-col-cloud" data-i18n="lstCloud">Cloud</span>
-          <span class="sl-col sl-col-name" data-i18n="lstName"
+          <span class="sl-col sl-col-onoff" data-l10n-id="lstOnoff">OnOff</span>
+          <span class="sl-col sl-col-cloud" data-l10n-id="lstCloud">Cloud</span>
+          <span class="sl-col sl-col-name" data-l10n-id="lstName"
             >Script Name</span
           >
-          <span class="sl-col sl-col-description" data-i18n="lstDescription"
+          <span class="sl-col sl-col-description" data-l10n-id="lstDescription"
             >Script Description</span
           >
         </div>
@@ -337,7 +343,7 @@
   </groupbox>
   <groupbox>
     <vbox class="leftpanel" style="border-right: initial">
-      <html:label class="button" id="saveload" data-i18n="btnSaveLoad"
+      <html:label class="button" id="saveload" data-l10n-id="btnSaveLoad"
         >Save and Load</html:label
       >
       <div class="gifs">

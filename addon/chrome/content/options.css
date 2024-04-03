@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+#zotero-prefpane-__addonRef__ {
+    font-family: "Segoe UI", Arial, "Microsoft Yahei", sans-serif;
+    font-size: 12px;
+    width: 440px;
+    border-radius: 8px;
+}
 /* body {
     font-family: "Segoe UI", Arial, "Microsoft Yahei", sans-serif;
     font-size: 12px;
