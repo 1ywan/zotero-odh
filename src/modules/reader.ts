@@ -1,6 +1,6 @@
 import { config } from "../../package.json";
 import { renderPopup } from "./fg/popup";
-import { registerAudioLinks } from "./frame";
+import { onDomContentLoaded } from "./frame";
 // import { SVGIcon } from "../utils/config";
 // import { addTranslateAnnotationTask } from "../utils/task";
 
@@ -44,7 +44,7 @@ export function registerReaderInitializer() {
           // popup.src = "chrome://zodh/content/popup.html";
           popup.innerHTML = content;
 
-          registerAudioLinks(doc);
+          onDomContentLoaded(doc);
         });
 
       // setTimeout(

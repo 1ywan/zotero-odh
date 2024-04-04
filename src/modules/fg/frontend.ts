@@ -3,6 +3,7 @@ import { isEmpty, isValidElement, selectedText, getSentence } from "./text";
 import { rangeFromPoint, TextSourceRange } from "./range";
 import { isConnected, getTranslation, addNote, playAudio } from "./api";
 import { Popup } from "./popup";
+import { api_setActionState } from "../frame";
 
 export class ZODHFront {
   options: {
@@ -221,7 +222,9 @@ export class ZODHFront {
     notedef.sentence = context;
     notedef.url = window.location.href;
     const response = await addNote(notedef);
-    this.popup.sendMessage("setActionState", { response, params });
+    // const bg = addon.data.bg;
+
+    api_setActionState({ response, params });
   }
 
   async api_playAudio(params: { nindex: any; dindex: any }) {

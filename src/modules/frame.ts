@@ -1,32 +1,41 @@
 import { spell } from "./spell";
 
-function getImageSource(id: string) {
-  return document.querySelector(`#${id}`).src;
+function getImageSource(doc: Document, id: string) {
+  return (doc.querySelector(`#${id}`) as HTMLImageElement)!.src;
 }
 
-function registerAddNoteLinks() {
-  for (const link of document.getElementsByClassName("odh-addnote")) {
+function registerAddNoteLinks(doc: Document) {
+  for (const link of doc.getElementsByClassName("odh-addnote")) {
     link.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
-      const ds = e.currentTarget.dataset;
-      e.currentTarget.src = getImageSource("load");
-      window.parent.postMessage(
-        {
-          action: "addNote",
-          params: {
-            nindex: ds.nindex,
-            dindex: ds.dindex,
-            context: document.querySelector(".spell-content").innerHTML,
-          },
-        },
-        "*",
-      );
+      const ds = (e.currentTarget as HTMLImageElement).dataset;
+      (e.currentTarget as HTMLImageElement)!.src = getImageSource(doc, "load");
+
+      const fg = addon.data.fg;
+
+      fg?.api_addNote({
+        nindex: ds.nindex,
+        dindex: ds.dindex,
+        // context: doc.querySelector(".spell-content")?.innerHTML,
+        context: null,
+      });
+      // window.parent.postMessage(
+      //   {
+      //     action: "addNote",
+      //     params: {
+      //       nindex: ds.nindex,
+      //       dindex: ds.dindex,
+      //       context: document.querySelector(".spell-content").innerHTML,
+      //     },
+      //   },
+      //   "*",
+      // );
     });
   }
 }
 
-export function registerAudioLinks(doc: Document) {
+function registerAudioLinks(doc: Document) {
   for (const link of doc.getElementsByClassName("odh-playaudio")) {
     link.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -103,12 +112,12 @@ function hideTranslation() {
   }
 }
 
-function onDomContentLoaded() {
-  registerAddNoteLinks();
-  registerAudioLinks();
-  registerSoundLinks();
-  registerHiddenClass();
-  initSpellnTranslation();
+export function onDomContentLoaded(doc: Document) {
+  registerAddNoteLinks(doc);
+  registerAudioLinks(doc);
+  // registerSoundLinks();
+  // registerHiddenClass();
+  // initSpellnTranslation();
 }
 
 function onMessage(e) {
@@ -119,7 +128,7 @@ function onMessage(e) {
   }
 }
 
-function api_setActionState(result) {
+export function api_setActionState(result) {
   const { response, params } = result;
   const { nindex, dindex } = params;
 

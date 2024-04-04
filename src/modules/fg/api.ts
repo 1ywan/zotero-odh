@@ -19,11 +19,9 @@ export async function getTranslation(expression: string): Promise<any> {
 }
 
 export async function addNote(notedef: any) {
-  try {
-    return await sendtoBackend({ action: "addNote", params: { notedef } });
-  } catch (err) {
-    return null;
-  }
+  const bg = addon.data.bg;
+  const response = await bg?.api_addNote(notedef);
+  return response;
 }
 
 export async function playAudio(url: string) {
