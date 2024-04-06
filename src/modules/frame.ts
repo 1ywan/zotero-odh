@@ -86,11 +86,13 @@ function registerSoundLinks() {
   }
 }
 
-function initSpellnTranslation() {
-  document.querySelector("#odh-container").appendChild(spell());
-  document.querySelector(".spell-content").innerHTML =
-    document.querySelector("#context").innerHTML;
-  if (document.querySelector("#monolingual").innerText == "1")
+function initSpellnTranslation(doc: Document) {
+  doc.querySelector("#odh-container")?.appendChild(spell(doc));
+  doc.querySelector(".spell-content")!.innerHTML =
+    doc.querySelector("#context")!.innerHTML;
+  if (
+    (doc.querySelector("#monolingual") as HTMLSelectElement)!.innerText == "1"
+  )
     hideTranslation();
 }
 
@@ -117,7 +119,7 @@ export function onDomContentLoaded(doc: Document) {
   registerAudioLinks(doc);
   // registerSoundLinks();
   // registerHiddenClass();
-  // initSpellnTranslation();
+  initSpellnTranslation(doc);
 }
 
 function onMessage(e) {

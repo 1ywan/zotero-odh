@@ -35,6 +35,7 @@
 }
 
 .spell-icon {
+	display:inline-block;
 	position: relative;
 	background-color: transparent;
 	border: none;

@@ -13,13 +13,19 @@ export function registerReaderInitializer() {
       link.rel = "stylesheet";
       link.type = "text/css";
       link.href = "chrome://zodh/content/client.css";
-      doc.head.appendChild(link);
+      doc.head.append(link);
 
       link = doc.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
       link.href = "chrome://zodh/content/frame.css";
-      doc.head.appendChild(link);
+      doc.head.append(link);
+
+      link = doc.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = "chrome://zodh/content/spell.css";
+      doc.head.append(link);
 
       const popup = doc.createElement("div");
       popup.id = "odh-popup";
