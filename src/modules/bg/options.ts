@@ -115,6 +115,7 @@ function populateDictionary(
 ) {
   const dict = doc.querySelector("#dict");
   dict?.replaceChildren();
+  if (dicts == undefined) return;
   dicts.forEach((item) => {
     const ele = document.createElementNS("html", "option") as HTMLOptionElement;
     ele.value = item.objectname;
@@ -159,15 +160,49 @@ function populateSysScriptsList(doc: Document, dictLibrary: string) {
   const scriptslistbody = doc.querySelector("#scriptslistbody");
   scriptslistbody?.replaceChildren();
   systemscripts.forEach((script) => {
-    let row = "";
-    row += `<input class="sl-col sl-col-onoff" type="checkbox" ${optionscripts.includes(script) || optionscripts.includes("lib://" + script) ? "checked" : ""}>`;
-    row += `<input class="sl-col sl-col-cloud" type="checkbox" ${optionscripts.includes("lib://" + script) ? "checked" : ""}>`;
-    row += `<span class="sl-col sl-col-name">${script}</span>`;
-    row += `<span class="sl-col sl-col-description">${script}</span>`;
-    const rowEl = doc.createElement("div");
-    rowEl.classList.add("sl-row");
-    rowEl.innerHTML = row;
-    scriptslistbody!.append(rowEl);
+    const row = doc.createElementNS("http://www.w3.org/1999/xhtml", "div");
+    row.classList.add("sl-row");
+
+    const col_onoff = doc.createElementNS(
+      "http://www.w3.org/1999/xhtml",
+      "input",
+    ) as HTMLInputElement;
+    col_onoff.className = "sl-col sl-col-onoff";
+    col_onoff.type = "checkbox";
+    col_onoff.checked =
+      optionscripts.includes(script) ||
+      optionscripts.includes("lib://" + script)
+        ? true
+        : false;
+
+    const col_cloud = doc.createElementNS(
+      "http://www.w3.org/1999/xhtml",
+      "input",
+    ) as HTMLInputElement;
+    col_cloud.className = "sl-col sl-col-cloud";
+    col_cloud.type = "checkbox";
+    col_cloud.checked = optionscripts.includes("lib://" + script)
+      ? true
+      : false;
+
+    const col_name = doc.createElementNS(
+      "http://www.w3.org/1999/xhtml",
+      "span",
+    ) as HTMLSpanElement;
+    col_name.className = "sl-col sl-col-name";
+    col_name.innerText = script;
+
+    const col_description = doc.createElementNS(
+      "http://www.w3.org/1999/xhtml",
+      "span",
+    ) as HTMLSpanElement;
+    col_description.className = "sl-col sl-col-name";
+    col_description.innerText = script;
+    row.append(col_onoff, col_onoff, col_name, col_description);
+
+    // row += `<span class="sl-col sl-col-name">${script}</span>`;
+    // row.innerHTML = row;
+    scriptslistbody!.append(row);
   });
 
   (doc.querySelector(
@@ -266,7 +301,7 @@ export async function onReady(doc: Document) {
     "zodh.hotkey",
   ) as string;
 
-  populateDictionary(doc, Zotero.Prefs.get("zodh.dictNamelist") as any);
+  populateDictionary(doc, Zotero.Prefs.get("zodh.dictNameList") as any);
   (doc.querySelector("#dict") as HTMLSelectElement).value = Zotero.Prefs.get(
     "zodh.dictSelected",
   ) as string;
@@ -307,9 +342,8 @@ export async function onReady(doc: Document) {
     "audio",
   ];
   fields.forEach((field) => {
-    (
-      doc.querySelector(`#doc.querySelector{field}`) as HTMLSelectElement
-    ).value = Zotero.Prefs.get(`zodh.doc.querySelector{field}`) as string;
+    (doc.querySelector(`#${field}`) as HTMLSelectElement).value =
+      Zotero.Prefs.get(`zodh.${field}`) as string;
   });
 
   (doc.querySelector("#sysscripts") as HTMLSelectElement).value =

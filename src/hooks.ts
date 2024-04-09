@@ -13,6 +13,7 @@ import { getString, initLocale } from "./utils/locale";
 import { registerPrefsScripts } from "./modules/preferenceScript";
 import { createZToolkit } from "./utils/ztoolkit";
 import { registerReaderInitializer } from "./modules/reader";
+import { onReady } from "./modules/bg/options";
 
 async function onStartup() {
   await Promise.all([
@@ -99,6 +100,7 @@ async function onPrefsEvent(type: string, data: { [key: string]: any }) {
   switch (type) {
     case "load":
       registerPrefsScripts(data.window);
+      await onReady(data.window.document);
       break;
     default:
       return;
