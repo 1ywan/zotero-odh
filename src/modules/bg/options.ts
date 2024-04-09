@@ -189,7 +189,7 @@ function populateSysScriptsList(doc: Document, dictLibrary: string) {
       "http://www.w3.org/1999/xhtml",
       "span",
     ) as HTMLSpanElement;
-    col_name.className = "sl-col sl-col-name";
+    col_name.className = "sl-col sl-col-description";
     col_name.innerText = script;
 
     const col_description = doc.createElementNS(
@@ -198,22 +198,27 @@ function populateSysScriptsList(doc: Document, dictLibrary: string) {
     ) as HTMLSpanElement;
     col_description.className = "sl-col sl-col-name";
     col_description.innerText = script;
-    row.append(col_onoff, col_onoff, col_name, col_description);
+    row.append(col_onoff, col_cloud, col_name, col_description);
 
     // row += `<span class="sl-col sl-col-name">${script}</span>`;
     // row.innerHTML = row;
     scriptslistbody!.append(row);
   });
 
-  (doc.querySelector(
-    ".sl-col-onoff.sl-row:nth-child(1)",
-  ) as HTMLInputElement)!.checked = true; // make default script(first row) always active.
-  (doc.querySelector(
-    ".sl-col-cloud.sl-row:nth-child(1)",
-  ) as HTMLInputElement)!.checked = false; // make default script(first row) as local script.
-  (doc.querySelector(
-    ".sl-col-cloud.sl-col-onoff.sl-row:nth-child(1)",
-  ) as HTMLElement)!.style.visibility = "hidden"; //make default sys script untouch
+  (doc
+    .querySelector(".sl-row:nth-child(1)")
+    ?.querySelector(".sl-col-onoff") as HTMLInputElement)!.checked = true; // make default script(first row) always active.
+  (doc
+    .querySelector(".sl-row:nth-child(1)")
+    ?.querySelector(".sl-col-cloud") as HTMLInputElement)!.checked = false; // make default script(first row) as local script.
+  (doc
+    .querySelector(".sl-row:nth-child(1)")
+    ?.querySelector(".sl-col-cloud") as HTMLElement)!.style.visibility =
+    "hidden"; //make default sys script untouch
+  (doc
+    .querySelector(".sl-row:nth-child(1)")
+    ?.querySelector(".sl-col-onoff") as HTMLElement)!.style.visibility =
+    "hidden";
 }
 
 function onScriptListChange(doc: Document) {
