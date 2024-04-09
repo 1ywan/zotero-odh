@@ -80,7 +80,7 @@
       <label for="dict" data-l10n-id="lblCurrentDict" class="label"
         >Dictionary</label
       >
-      <menulist native="true" class="select col-3x">
+      <menulist id="dict" native="true" class="select col-3x">
         <menupopup>
           <menuitem label="encn-Default" />
         </menupopup>
@@ -95,7 +95,7 @@
           <label data-l10n-id="lblLingualType" class="label"
             >Mono/Bilingual Dict.</label
           >
-          <menulist native="true" class="select">
+          <menulist id="monolingual" native="true" class="select">
             <menupopup>
               <menuitem label="Bilingual" />
               <menuitem label="Monolingual" />
@@ -104,7 +104,7 @@
         </hbox>
         <hbox>
           <label data-l10n-id="lblAudioPref" class="label">Pref. Audio</label>
-          <menulist native="true" class="select">
+          <menulist id="anki-preferred-audio" native="true" class="select">
             <menupopup>
               <menuitem label="#0" />
               <menuitem label="#1" />
@@ -117,7 +117,7 @@
           <label data-l10n-id="lblMaxContext" class="label"
             >Max. Context #</label
           >
-          <menulist native="true" class="select">
+          <menulist id="maxcontext" native="true" class="select">
             <menupopup>
               <menuitem label="1" />
               <menuitem label="2" />
@@ -129,7 +129,7 @@
           <label data-l10n-id="lblMaxExample" class="label"
             >Max. Example #</label
           >
-          <menulist native="true" class="select">
+          <menulist id="maxexample" native="true" class="select">
             <menupopup>
               <menuitem label="0" />
               <menuitem label="1" />
@@ -155,7 +155,7 @@
 
     <hbox>
       <label data-l10n-id="lblServices" class="label">Services</label>
-      <menulist class="select col-2x">
+      <menulist id="services" native="true" class="select col-2x">
         <menupopup>
           <menuitem value="none">None</menuitem>
           <menuitem value="ankiconnect">Ankiconnect</menuitem>
@@ -194,11 +194,11 @@
     <vbox id="anki-options">
       <hbox>
         <label data-l10n-id="lblDeckname" class="label">Deck Name</label>
-        <menulist id="deckname" class="select col-3x"></menulist>
+        <menulist id="deckname" native="true" class="select col-3x"></menulist>
       </hbox>
       <hbox>
         <label data-l10n-id="lblTypename" class="label">Type Name</label>
-        <menulist id="typename" class="select col-3x"></menulist>
+        <menulist id="typename" native="true" class="select col-3x"></menulist>
       </hbox>
       <hbox>
         <vbox>
@@ -206,25 +206,25 @@
             <label for="expression" data-l10n-id="lblExpression" class="label"
               >Expression</label
             >
-            <menulist id="expression" class="select"></menulist>
+            <menulist id="expression" native="true" class="select"></menulist>
           </hbox>
           <hbox>
             <label for="reading" data-l10n-id="lblReading" class="label"
               >Reading</label
             >
-            <menulist id="reading" class="select"></menulist>
+            <menulist id="reading" native="true" class="select"></menulist>
           </hbox>
           <hbox>
             <label for="definition" data-l10n-id="lblDefinition" class="label"
               >Definition</label
             >
-            <menulist id="definition" class="select"></menulist>
+            <menulist id="definition" native="true" class="select"></menulist>
           </hbox>
           <hbox>
             <label for="definitions" data-l10n-id="lblDefinitions" class="label"
               >Definition</label
             >
-            <menulist id="definitions" class="select"></menulist>
+            <menulist id="definitions" native="true" class="select"></menulist>
           </hbox>
         </vbox>
         <vbox>
@@ -232,25 +232,25 @@
             <label for="sentence" data-l10n-id="lblSentence" class="label"
               >Sentence</label
             >
-            <menulist id="sentence" class="select"></menulist>
+            <menulist id="sentence" native="true" class="select"></menulist>
           </hbox>
           <hbox>
             <label for="extrainfo" data-l10n-id="lblExtrainfo" class="label"
               >Extrainfo</label
             >
-            <menulist id="extrainfo" class="select"></menulist>
+            <menulist id="extrainfo" native="true" class="select"></menulist>
           </hbox>
 
           <hbox>
             <label for="url" data-l10n-id="lblUrl" class="label">URL</label>
-            <menulist id="url" class="select"></menulist>
+            <menulist id="url" native="true" class="select"></menulist>
           </hbox>
 
           <hbox>
             <label for="audio" data-l10n-id="lblAudio" class="label"
               >Audio</label
             >
-            <menulist id="audio" class="select"></menulist>
+            <menulist id="audio" native="true" class="select"></menulist>
           </hbox>
         </vbox>
       </hbox>
@@ -269,7 +269,7 @@
         <label data-l10n-id="lblAllowDuplicate" class="label"
           >Allow Duplicate</label
         >
-        <menulist id="duplicate" class="select col-3x">
+        <menulist id="duplicate" native="true" class="select col-3x">
           <menupopup>
             <menuitem value="0" data-i18n="selNotAllowed">Not Allowed</menuitem>
             <menuitem value="1" data-i18n="selAllowed">Allowed</menuitem>
@@ -324,7 +324,7 @@
           class="col-3x"
         />
       </hbox>
-      <hbox>
+      <vbox>
         <div id="scriptslisthead" class="sl-head">
           <span class="sl-col sl-col-onoff" data-l10n-id="lstOnoff">OnOff</span>
           <span class="sl-col sl-col-cloud" data-l10n-id="lstCloud">Cloud</span>
@@ -336,9 +336,13 @@
           >
         </div>
         <div class="scriptlistwrapper">
-          <div id="scriptslistbody" class="sl-body"></div>
+          <div
+            id="scriptslistbody"
+            class="sl-body"
+            style="display: block"
+          ></div>
         </div>
-      </hbox>
+      </vbox>
     </vbox>
   </groupbox>
   <groupbox>
