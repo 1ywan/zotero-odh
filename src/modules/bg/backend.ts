@@ -300,17 +300,17 @@ export class ODHBack {
     return this.options;
   }
 
-  //   async opt_getDeckNames() {
-  //     return this.target ? await this.target.getDeckNames() : null;
-  //   }
+  async opt_getDeckNames() {
+    return this.target ? await this.target.getDeckNames() : null;
+  }
 
-  //   async opt_getModelNames() {
-  //     return this.target ? await this.target.getModelNames() : null;
-  //   }
+  async opt_getModelNames() {
+    return this.target ? await this.target.getModelNames() : null;
+  }
 
-  //   async opt_getModelFieldNames(modelName) {
-  //     return this.target ? await this.target.getModelFieldNames(modelName) : null;
-  //   }
+  async opt_getModelFieldNames(modelName: string) {
+    return this.target ? await this.target.getModelFieldNames(modelName) : null;
+  }
 
   async opt_getVersion() {
     return this.target ? await this.target.getVersion() : null;

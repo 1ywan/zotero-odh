@@ -27,3 +27,7 @@ interface String {
   searchAll(obj: string): number[];
   replaceAll(search: string, replacement: string);
 }
+
+interface Document {
+  createXULElement(ele: string);
+}

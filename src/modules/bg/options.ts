@@ -8,9 +8,9 @@ async function populateAnkiDeckAndModel(doc: Document) {
   names = await bg.opt_getDeckNames();
   if (names !== null) {
     names.forEach((name: string) => {
-      const opt = doc.createElement("option");
+      const opt = doc.createXULElement("menuitem");
+      opt.label = name;
       opt.value = name;
-      opt.text = name;
       doc.querySelector("#deckname")!.append(opt);
     });
   }
@@ -22,9 +22,9 @@ async function populateAnkiDeckAndModel(doc: Document) {
   names = await bg.opt_getModelNames();
   if (names !== null) {
     names.forEach((name: string) => {
-      const opt = doc.createElement("option");
+      const opt = doc.createXULElement("menuitem");
+      opt.label = name;
       opt.value = name;
-      opt.text = name;
       doc.querySelector("#typename")!.append(opt);
     });
   }
@@ -57,13 +57,13 @@ async function populateAnkiFields(doc: Document) {
   fields.forEach((field) => {
     const select = doc.querySelector(`#${field}`) as HTMLSelectElement;
     select?.replaceChildren();
-    const opt = doc.createElement("option");
-    opt.value = "";
+    const opt = doc.createXULElement("menuitem");
+    opt.label = "";
     opt.text = "";
     select?.append(opt);
     names.forEach((name: string) => {
-      const opt1 = doc.createElement("option");
-      opt1.value = name;
+      const opt1 = doc.createXULElement("menuitem");
+      opt1.label = name;
       opt1.text = name;
       select?.append(opt1);
     });
