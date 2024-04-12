@@ -80,9 +80,9 @@
       <label for="dict" data-l10n-id="lblCurrentDict" class="label"
         >Dictionary</label
       >
-      <menulist id="dict" native="true" class="select col-3x">
-        <menupopup>
-          <menuitem label="encn-Default" />
+      <menulist native="true" class="select col-3x">
+        <menupopup id="dict">
+          <menuitem label="encn-Default" value="encn-Default" />
         </menupopup>
       </menulist>
       <!-- <select id="dict" class="col-3x">
@@ -104,10 +104,10 @@
         </hbox>
         <hbox>
           <label data-l10n-id="lblAudioPref" class="label">Pref. Audio</label>
-          <menulist id="anki-preferred-audio" native="true" class="select">
-            <menupopup>
-              <menuitem label="#0" />
-              <menuitem label="#1" />
+          <menulist native="true" class="select">
+            <menupopup id="anki-preferred-audio">
+              <menuitem label="#0" value="0" />
+              <menuitem label="#1" value="1" />
             </menupopup>
           </menulist>
         </hbox>
@@ -155,11 +155,11 @@
 
     <hbox>
       <label data-l10n-id="lblServices" class="label">Services</label>
-      <menulist id="services" native="true" class="select col-2x">
-        <menupopup>
-          <menuitem value="none">None</menuitem>
-          <menuitem value="ankiconnect">Ankiconnect</menuitem>
-          <menuitem value="ankiweb">Ankiweb</menuitem>
+      <menulist native="true" class="select col-2x">
+        <menupopup id="services">
+          <menuitem label="None" value="none">None</menuitem>
+          <menuitem label="Ankiconnect" value="ankiconnect" />
+          <menuitem label="Ankiweb" value="ankiweb" />
         </menupopup>
       </menulist>
       <label id="services-status" class="label">Anki Status</label>
@@ -291,8 +291,12 @@
         >
         <menulist id="duplicate" native="true" class="select col-3x">
           <menupopup>
-            <menuitem value="0" data-i18n="selNotAllowed">Not Allowed</menuitem>
-            <menuitem value="1" data-i18n="selAllowed">Allowed</menuitem>
+            <menuitem label="Not Allowed" value="0" data-l10n-id="selNotAllowed"
+              >Not Allowed</menuitem
+            >
+            <menuitem label="Allowed" value="1" data-l10n-id="selAllowed"
+              >Allowed</menuitem
+            >
           </menupopup>
         </menulist>
       </hbox>

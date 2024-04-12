@@ -117,9 +117,9 @@ function populateDictionary(
   dict?.replaceChildren();
   if (dicts == undefined) return;
   dicts.forEach((item) => {
-    const ele = document.createElementNS("html", "option") as HTMLOptionElement;
+    const ele = document.createXULElement("menuitem");
     ele.value = item.objectname;
-    ele.text = item.displayname;
+    ele.label = item.displayname;
     dict!.append(ele);
   });
 }
@@ -240,7 +240,9 @@ function onScriptListChange(doc: Document) {
 }
 
 function onHiddenClicked(doc: Document) {
-  doc.querySelector(".sl-col-cloud")?.classList.toggle("hidden");
+  doc
+    .querySelectorAll(".sl-col-cloud")
+    ?.forEach((col) => col.classList.toggle("hidden"));
 }
 
 async function onAnkiTypeChanged(e: any, doc: Document) {
