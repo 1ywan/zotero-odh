@@ -39,7 +39,12 @@
         <hbox>
           <label data-l10n-id="lblEnabled" class="label">Enable/Disable</label>
           <div class="enabled">
-            <input type="checkbox" value="true" id="enabled" />
+            <html:input
+              type="checkbox"
+              value="true"
+              id="enabled"
+              preference="__prefsPrefix__.enabled"
+            />
             <label for="enabled"></label>
           </div>
         </hbox>
@@ -48,7 +53,12 @@
             >Enable/Disable</label
           >
           <div class="enabled">
-            <input type="checkbox" value="true" id="mouseselection" />
+            <html:input
+              type="checkbox"
+              value="true"
+              id="mouseselection"
+              preference="__prefsPrefix__.mouseselection"
+            />
             <label for="mouseselection"></label>
           </div>
         </hbox>
@@ -57,7 +67,11 @@
         <hbox class="rightpanel">
           <label data-l10n-id="lblHotkey" class="label">AuoSel. HotKey</label>
 
-          <menulist native="true" class="select">
+          <menulist
+            native="true"
+            class="select"
+            preference="__prefsPrefix__.hotkey"
+          >
             <menupopup id="hotkey">
               <menuitem label="Off" value="0" />
               <menuitem label="Shift" value="16" />
@@ -81,7 +95,7 @@
         >Dictionary</label
       >
       <menulist native="true" class="select col-3x">
-        <menupopup id="dict">
+        <menupopup id="dict" preference="__prefsPrefix__.dictSelected">
           <menuitem label="encn-Default" value="encn-Default" />
         </menupopup>
       </menulist>
@@ -95,8 +109,11 @@
           <label data-l10n-id="lblLingualType" class="label"
             >Mono/Bilingual Dict.</label
           >
-          <menulist id="monolingual" native="true" class="select">
-            <menupopup>
+          <menulist native="true" class="select">
+            <menupopup
+              id="monolingual"
+              preference="__prefsPrefix__.monolingual"
+            >
               <menuitem label="Bilingual" />
               <menuitem label="Monolingual" />
             </menupopup>
@@ -105,7 +122,10 @@
         <hbox>
           <label data-l10n-id="lblAudioPref" class="label">Pref. Audio</label>
           <menulist native="true" class="select">
-            <menupopup id="anki-preferred-audio">
+            <menupopup
+              id="anki-preferred-audio"
+              preference="__prefsPrefix__.preferredaudio"
+            >
               <menuitem label="#0" value="0" />
               <menuitem label="#1" value="1" />
             </menupopup>
@@ -117,11 +137,15 @@
           <label data-l10n-id="lblMaxContext" class="label"
             >Max. Context #</label
           >
-          <menulist id="maxcontext" native="true" class="select">
-            <menupopup>
-              <menuitem label="1" />
-              <menuitem label="2" />
-              <menuitem label="3" />
+          <menulist
+            native="true"
+            class="select"
+            preference="__prefsPrefix__.maxcontext"
+          >
+            <menupopup id="maxcontext">
+              <menuitem label="1" value="1" />
+              <menuitem label="2" value="2" />
+              <menuitem label="3" value="3" />
             </menupopup>
           </menulist>
         </hbox>
@@ -129,11 +153,15 @@
           <label data-l10n-id="lblMaxExample" class="label"
             >Max. Example #</label
           >
-          <menulist id="maxexample" native="true" class="select">
-            <menupopup>
-              <menuitem label="0" />
-              <menuitem label="1" />
-              <menuitem label="2" />
+          <menulist
+            native="true"
+            class="select"
+            preference="__prefsPrefix__.maxexample"
+          >
+            <menupopup id="maxexample">
+              <menuitem label="0" value="0" />
+              <menuitem label="1" value="1" />
+              <menuitem label="2" value="2" />
             </menupopup>
           </menulist>
         </hbox>
@@ -155,9 +183,13 @@
 
     <hbox>
       <label data-l10n-id="lblServices" class="label">Services</label>
-      <menulist native="true" class="select col-2x">
+      <menulist
+        native="true"
+        class="select col-2x"
+        preference="__prefsPrefix__.services"
+      >
         <menupopup id="services">
-          <menuitem label="None" value="none">None</menuitem>
+          <menuitem label="None" value="none" />
           <menuitem label="Ankiconnect" value="ankiconnect" />
           <menuitem label="Ankiweb" value="ankiweb" />
         </menupopup>
@@ -172,6 +204,7 @@
           id="id"
           placeholder="Ankiweb Username"
           class="col-2x"
+          preference="__prefsPrefix__.id"
         />
         <label>
           <html:a
@@ -187,6 +220,7 @@
           id="password"
           placeholder="Ankiweb Password"
           class="col-2x"
+          preference="__prefsPrefix__.password"
         />
         <label class="button" id="login" data-l10n-id="lblSignin">Signin</label>
       </vbox>
@@ -194,13 +228,21 @@
     <vbox id="anki-options">
       <hbox>
         <label data-l10n-id="lblDeckname" class="label">Deck Name</label>
-        <menulist native="true" class="select col-3x">
+        <menulist
+          native="true"
+          class="select col-3x"
+          preference="__prefsPrefix__.deckname"
+        >
           <menupopup id="deckname"> </menupopup>
         </menulist>
       </hbox>
       <hbox>
         <label data-l10n-id="lblTypename" class="label">Type Name</label>
-        <menulist native="true" class="select col-3x">
+        <menulist
+          native="true"
+          class="select col-3x"
+          preference="__prefsPrefix__.typename"
+        >
           <menupopup id="typename"> </menupopup>
         </menulist>
       </hbox>
@@ -210,7 +252,11 @@
             <label for="expression" data-l10n-id="lblExpression" class="label"
               >Expression</label
             >
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.expression"
+            >
               <menupopup id="expression"> </menupopup>
             </menulist>
           </hbox>
@@ -218,7 +264,11 @@
             <label for="reading" data-l10n-id="lblReading" class="label"
               >Reading</label
             >
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.reading"
+            >
               <menupopup id="reading"> </menupopup>
             </menulist>
           </hbox>
@@ -226,7 +276,11 @@
             <label for="definition" data-l10n-id="lblDefinition" class="label"
               >Definition</label
             >
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.definition"
+            >
               <menupopup id="definition"> </menupopup>
             </menulist>
           </hbox>
@@ -234,7 +288,11 @@
             <label for="definitions" data-l10n-id="lblDefinitions" class="label"
               >Definition</label
             >
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.definitions"
+            >
               <menupopup id="definitions"> </menupopup>
             </menulist>
           </hbox>
@@ -244,7 +302,11 @@
             <label for="sentence" data-l10n-id="lblSentence" class="label"
               >Sentence</label
             >
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.sentence"
+            >
               <menupopup id="sentence"></menupopup>
             </menulist>
           </hbox>
@@ -252,14 +314,22 @@
             <label for="extrainfo" data-l10n-id="lblExtrainfo" class="label"
               >Extrainfo</label
             >
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.extrainfo"
+            >
               <menupopup id="extrainfo"></menupopup>
             </menulist>
           </hbox>
 
           <hbox>
             <label for="url" data-l10n-id="lblUrl" class="label">URL</label>
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.url"
+            >
               <menupopup id="url"> </menupopup>
             </menulist>
           </hbox>
@@ -268,7 +338,11 @@
             <label for="audio" data-l10n-id="lblAudio" class="label"
               >Audio</label
             >
-            <menulist native="true" class="select">
+            <menulist
+              native="true"
+              class="select"
+              preference="__prefsPrefix__.audio"
+            >
               <menupopup id="audio"> </menupopup>
             </menulist>
           </hbox>
@@ -281,6 +355,7 @@
           id="tags"
           placeholder="Tags"
           class="col-3x input"
+          preference="__prefsPrefix__.tags"
         />
       </hbox>
     </vbox>
@@ -289,7 +364,12 @@
         <label data-l10n-id="lblAllowDuplicate" class="label"
           >Allow Duplicate</label
         >
-        <menulist id="duplicate" native="true" class="select col-3x">
+        <menulist
+          id="duplicate"
+          native="true"
+          class="select col-3x"
+          preference="__prefsPrefix__.duplicate"
+        >
           <menupopup>
             <menuitem label="Not Allowed" value="0" data-l10n-id="selNotAllowed"
               >Not Allowed</menuitem
@@ -324,6 +404,7 @@
         id="udfscripts"
         placeholder="http(s)://your_host.com/your_script.js"
         class="col-3x"
+        preference="__prefsPrefix__.udfscripts"
       />
     </hbox>
   </groupbox>
@@ -346,6 +427,7 @@
           id="sysscripts"
           placeholder="System Scripts"
           class="col-3x"
+          preference="__prefsPrefix__.sysscripts"
         />
       </hbox>
       <vbox>
@@ -376,13 +458,13 @@
       >
       <div class="gifs">
         <span class="gif" id="gif-load">
-          <img src="/fg/img/load.gif" alt="" />
+          <img src="chrome://content/fg/img/load.gif" alt="" />
         </span>
         <span class="gif" id="gif-good">
-          <img src="/fg/img/good.png" alt="" />
+          <img src="chrome://content/fg/img/good.png" alt="" />
         </span>
         <span class="gif" id="gif-fail">
-          <img src="/fg/img/fail.png" alt="" />
+          <img src="chrome://content/fg/img/fail.png" alt="" />
         </span>
       </div>
     </vbox>
