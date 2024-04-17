@@ -259,10 +259,10 @@ export class ZODHFront {
     this.audio![url] = audio;
   }
 
-  buildNote(result: ConcatArray<never>) {
+  buildNote(_window: Window, result: ConcatArray<never>) {
     //get 1 sentence around the expression.
-    const expression = selectedText(this._window!);
-    const sentence = getSentence(this._window!, this.maxContext);
+    const expression = selectedText(_window!);
+    const sentence = getSentence(_window!, this.maxContext);
     this.sentence = sentence;
     const tmpl: { [key: string]: any } = {
       css: "",
@@ -336,7 +336,7 @@ export class ZODHFront {
       }
       content += "</div>";
     }
-    //content += `<textarea id="odh-context" class="odh-sentence">${this.sentence}</textarea>`;
+    // content += `<textarea id="odh-context" class="odh-sentence">${this.sentence}</textarea>`;
     content += '<div id="odh-container" class="odh-sentence"></div>';
     // return this.popupHeader() + content + this.popupFooter();
     return `<div class="odh-notes">` + content + this.popupIcons();
@@ -346,7 +346,7 @@ export class ZODHFront {
     const services = this.options ? this.options.services : "";
     const image = services == "ankiconnect" ? "plus.png" : "cloud.png";
     // const button = chrome.runtime.getURL("fg/img/" + image);
-    const button = rootURI + "fg/img/" + image;
+    const button = "chrome://zodh/content/fg/img/" + image;
     const monolingual = this.options
       ? this.options.monolingual == "1"
         ? 1
@@ -356,10 +356,10 @@ export class ZODHFront {
     return `
               <div class="icons hidden"">
                   <img id="plus" src="${button}"/>
-                  <img id="load" src="${root + "fg/img/load.gif"}"/>
-                  <img id="good" src="${root + "fg/img/good.png"}"/>
-                  <img id="fail" src="${root + "fg/img/fail.png"}"/>
-                  <img id="play" src="${root + "fg/img/play.png"}"/>
+                  <img id="load" src="chrome://zodh/content/fg/img/load.gif"/>
+                  <img id="good" src="chrome://zodh/content/fg/img/good.png"/>
+                  <img id="fail" src="chrome://zodh/content/fg/img/fail.png"/>
+                  <img id="play" src="chrome://zodh/content/fg/img/play.png"/>
                   <div id="context">${this.sentence}</div>
                   <div id="monolingual">${monolingual}</div>
                   </div>
