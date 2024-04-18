@@ -207,7 +207,7 @@ export class ODHBack {
 
   //   // front end message handler
   async api_isConnected() {
-    return await this.opt_getVersion();
+    return await addon.opt_getVersion();
   }
 
   async api_getTranslation(expression: string) {
@@ -298,22 +298,6 @@ export class ODHBack {
     // await this.setScriptsOptions(this.options);
     // optionsSave(this.options);
     return this.options;
-  }
-
-  async opt_getDeckNames() {
-    return this.target ? await this.target.getDeckNames() : null;
-  }
-
-  async opt_getModelNames() {
-    return this.target ? await this.target.getModelNames() : null;
-  }
-
-  async opt_getModelFieldNames(modelName: string) {
-    return this.target ? await this.target.getModelFieldNames(modelName) : null;
-  }
-
-  async opt_getVersion() {
-    return this.target ? await this.target.getVersion() : null;
   }
 
   // Sandbox communication start here

@@ -33,6 +33,8 @@ async function onStartup() {
     addon.data.bg.api_initBackend();
   }
 
+  addon.init();
+
   ZodhFactory.registerNotifier();
 
   registerReaderInitializer();

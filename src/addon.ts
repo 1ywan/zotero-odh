@@ -4,7 +4,8 @@ import hooks from "./hooks";
 import { createZToolkit } from "./utils/ztoolkit";
 import { ZODHFront } from "./modules/fg/frontend";
 import { ODHBack } from "./modules/bg/backend";
-import api from "./api";
+import { Ankiconnect } from "./modules/bg/ankiconnect";
+import { Ankiweb } from "./modules/bg/ankiweb";
 
 class Addon {
   public data: {
@@ -28,6 +29,9 @@ class Addon {
   public hooks: typeof hooks;
   // // APIs
   // public api: typeof api;
+  public ankiconnect: Ankiconnect | null;
+  public ankiweb: Ankiweb | null;
+  public target: Ankiconnect | Ankiweb | null;
 
   constructor() {
     this.data = {
@@ -38,7 +42,34 @@ class Addon {
       fg: null,
     };
     this.hooks = hooks;
+
+    this.ankiconnect = null;
+    this.ankiweb = null;
+    this.target = null;
+
     // this.api = api;
+  }
+
+  init() {
+    this.ankiconnect = new Ankiconnect();
+    this.ankiweb = new Ankiweb();
+    this.target = this.ankiconnect;
+  }
+
+  async opt_getDeckNames() {
+    return this.target ? await this.target.getDeckNames() : null;
+  }
+
+  async opt_getModelNames() {
+    return this.target ? await this.target.getModelNames() : null;
+  }
+
+  async opt_getModelFieldNames(modelName: string) {
+    return this.target ? await this.target.getModelFieldNames(modelName) : null;
+  }
+
+  async opt_getVersion() {
+    return this.target ? await this.target.getVersion() : null;
   }
 }
 

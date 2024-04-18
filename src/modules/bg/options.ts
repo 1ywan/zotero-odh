@@ -1,11 +1,9 @@
 /* global odhback, localizeHtmlPage, utilAsync, optionsLoad, optionsSave */
 async function populateAnkiDeckAndModel(doc: Document) {
-  const bg = addon.data.bg;
   let names = [];
   doc.querySelector("#deckname")?.replaceChildren();
 
-  if (bg == null) return;
-  names = await bg.opt_getDeckNames();
+  names = await addon.opt_getDeckNames();
   if (names !== null) {
     names.forEach((name: string) => {
       const opt = doc.createXULElement("menuitem");
@@ -19,7 +17,7 @@ async function populateAnkiDeckAndModel(doc: Document) {
     Zotero.Prefs.get("zodh.deckname") as string;
 
   doc.querySelector("#typename")?.replaceChildren();
-  names = await bg.opt_getModelNames();
+  names = await addon.opt_getModelNames();
   if (names !== null) {
     names.forEach((name: string) => {
       const opt = doc.createXULElement("menuitem");
@@ -33,15 +31,12 @@ async function populateAnkiDeckAndModel(doc: Document) {
 }
 
 async function populateAnkiFields(doc: Document) {
-  const bg = addon.data.bg;
-
   const modelName =
     (doc.querySelector("#typename") as HTMLSelectElement)!.value ||
-    Zotero.Prefs.get("zodh.typename");
+    (Zotero.Prefs.get("zodh.typename") as string);
   if (modelName === null) return;
 
-  if (bg == null) return;
-  const names = await bg.opt_getModelFieldNames(modelName);
+  const names = await addon.opt_getModelFieldNames(modelName);
   if (names == null) return;
 
   const fields = [
@@ -72,7 +67,6 @@ async function populateAnkiFields(doc: Document) {
 }
 
 async function updateAnkiStatus(doc: Document) {
-  const bg = addon.data.bg;
   (doc.querySelector("#services-status") as HTMLLabelElement).innerText =
     "msgConnecting";
   (doc.querySelector("#anki-options") as HTMLElement)!.style.visibility =
@@ -85,8 +79,7 @@ async function updateAnkiStatus(doc: Document) {
       "hidden";
   }
 
-  if (bg == null) return;
-  const version = await bg.opt_getVersion();
+  const version = await addon.opt_getVersion();
   if (version === null) {
     (doc.querySelector("#services-status") as HTMLLabelElement).innerText =
       "msgFailed";
