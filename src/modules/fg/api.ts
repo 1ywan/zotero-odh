@@ -7,8 +7,7 @@ async function sendtoBackend(request: any) {
 }
 
 export async function isConnected() {
-  const result = await Zotero.ZODH.data.bg.api_isConnected();
-
+  const result = await addon.opt_getVersion();
   return result;
 }
 

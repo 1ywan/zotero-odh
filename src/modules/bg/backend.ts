@@ -205,11 +205,6 @@ export class ODHBack {
   //     this.callback(chrome.i18n.getUILanguage(), callbackId);
   //   }
 
-  //   // front end message handler
-  async api_isConnected() {
-    return await addon.opt_getVersion();
-  }
-
   async api_getTranslation(expression: string) {
     // Fix https://github.com/ninja33/ODH/issues/97
     if (expression.endsWith(".")) {
@@ -218,14 +213,9 @@ export class ODHBack {
 
     const result = await this.findTerm(expression);
     return result;
-    // return new Promise((resolve, reject) => {
-    //   this.findTerm(expression).then((result) => resolve(result));
-    // });
   }
 
   async api_addNote(notedef: any) {
-    // const { notedef, callback } = params;
-
     const note = this.formatNote(notedef);
     return new Promise((resolve, reject) => {
       this.target?.addNote(note).then((result) => resolve(result));
