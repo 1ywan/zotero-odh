@@ -102,54 +102,6 @@ export class ODHBack {
   //     chrome.tabs.sendMessage(tabId, { action, params }, callback);
   //   }
 
-  formatNote(notedef: any) {
-    const options = this.options;
-    if (!options.deckname || !options.typename || !options.expression)
-      return null;
-
-    const note = {
-      deckName: options.deckname,
-      modelName: options.typename,
-      options: { allowDuplicate: options.duplicate == "1" ? true : false },
-      fields: {},
-      tags: [],
-    };
-
-    const fieldnames = [
-      "expression",
-      "reading",
-      "extrainfo",
-      "definition",
-      "definitions",
-      "sentence",
-      "url",
-    ];
-    for (const fieldname of fieldnames) {
-      if (!options[fieldname]) continue;
-      note.fields[options[fieldname]] = notedef[fieldname];
-    }
-
-    const tags = options.tags.trim();
-    if (tags.length > 0) note.tags = tags.split(" ");
-
-    if (options.audio && notedef.audios.length > 0) {
-      note.fields[options.audio] = "";
-      let audionumber = Number(options.preferredaudio);
-      audionumber =
-        audionumber && notedef.audios[audionumber] ? audionumber : 0;
-      const audiofile = notedef.audios[audionumber];
-      note.audio = {
-        url: audiofile,
-        filename: `ODH_${options.dictSelected}_${encodeURIComponent(
-          notedef.expression,
-        )}_${audionumber}.mp3`,
-        fields: [options.audio],
-      };
-    }
-
-    return note;
-  }
-
   // Message Hub and Handler start from here ...
   // onMessage(request: { action: any; params: any }, sender: any, callback: any) {
   //   const { action, params } = request;
@@ -213,13 +165,6 @@ export class ODHBack {
 
     const result = await this.findTerm(expression);
     return result;
-  }
-
-  async api_addNote(notedef: any) {
-    const note = this.formatNote(notedef);
-    return new Promise((resolve, reject) => {
-      this.target?.addNote(note).then((result) => resolve(result));
-    });
   }
 
   // async api_playAudio(url: string) {

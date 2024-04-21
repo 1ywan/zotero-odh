@@ -18,8 +18,7 @@ export async function getTranslation(expression: string): Promise<any> {
 }
 
 export async function addNote(notedef: any) {
-  const bg = addon.data.bg;
-  const response = await bg?.api_addNote(notedef);
+  const response = await addon.api_addNote(notedef);
   return response;
 }
 

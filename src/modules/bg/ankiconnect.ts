@@ -41,7 +41,7 @@ export class Ankiconnect {
     });
   }
 
-  async addNote(note: string) {
+  async addNote(note: any) {
     if (note) return await this.ankiInvoke("addNote", { note });
     else return Promise.resolve(null);
   }
