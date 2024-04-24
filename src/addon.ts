@@ -22,6 +22,10 @@ class Addon {
       columns: Array<ColumnOptions>;
       rows: Array<{ [dataKey: string]: string }>;
     };
+    dicts: { [key: string]: any };
+    current: string | null;
+    dictSelected: any;
+    dictNamelist: any;
     dialog?: DialogHelper;
     bg: ODHBack | null;
     fg: ZODHFront | null;
@@ -39,6 +43,10 @@ class Addon {
       alive: true,
       env: __env__,
       ztoolkit: createZToolkit(),
+      dicts: {},
+      current: null,
+      dictSelected: null,
+      dictNamelist: [],
       bg: null,
       fg: null,
     };
@@ -51,10 +59,13 @@ class Addon {
     // this.api = api;
   }
 
-  init() {
+  async init() {
     this.ankiconnect = new Ankiconnect();
     this.ankiweb = new Ankiweb();
     this.target = this.ankiconnect;
+
+    const options = optionsLoad();
+    await this.opt_optionsChanged(options);
   }
 
   async opt_getDeckNames() {
@@ -73,11 +84,86 @@ class Addon {
     return this.target ? await this.target.getVersion() : null;
   }
 
+  async opt_optionsChanged(options: { [key: string]: any }) {
+    // this.setFrontendOptions(options);
+
+    switch (options.services) {
+      case "none":
+        this.target = null;
+        break;
+      case "ankiconnect":
+        this.target = this.ankiconnect;
+        break;
+      case "ankiweb":
+        this.target = this.ankiweb;
+        break;
+      default:
+        this.target = null;
+    }
+
+    const defaultscripts = ["builtin_encn_Collins"];
+    const newscripts = `${options.sysscripts},${options.udfscripts}`;
+    let loadresults = null;
+    // if (
+    //   !this.options ||
+    //   `${this.options.sysscripts},${this.options.udfscripts}` != newscripts
+    // )
+    const currentscripts = this.data.dictNamelist.map((x: any) => x.objectname);
+    if (currentscripts.join() != newscripts) {
+      const scriptsset = Array.from(
+        new Set(
+          defaultscripts.concat(
+            newscripts
+              .split(",")
+              .filter((x) => x)
+              .map((x) => x.trim()),
+          ),
+        ),
+      );
+      loadresults = await this.loadScripts(scriptsset);
+    }
+
+    // this.options = options;
+    if (loadresults) {
+      const namelist = loadresults.map((x: any) => x.result.objectname);
+      this.data.dictSelected = namelist.includes(options.dictSelected)
+        ? options.dictSelected
+        : namelist[0];
+      this.data.dictNamelist = loadresults.map((x: any) => x.result);
+    }
+    this.setScriptsOptions(options);
+    // optionsSave(this.options);
+    // return this.options;
+  }
+
+  setScriptsOptions(options: any) {
+    for (const dictionary of Object.values(this.data.dicts)) {
+      if (typeof dictionary.setOptions === "function")
+        dictionary.setOptions(options);
+    }
+
+    const selected = this.data.dictSelected;
+    if (this.data.dicts[selected]) {
+      this.data.current = selected;
+      return;
+    }
+  }
+
   async api_addNote(notedef: any) {
     const note = this.formatNote(notedef);
     return new Promise((resolve, reject) => {
       this.target?.addNote(note).then((result) => resolve(result));
     });
+  }
+
+  async api_getTranslation(expression: string) {
+    // Fix https://github.com/ninja33/ODH/issues/97
+    if (expression.endsWith(".")) {
+      expression = expression.slice(0, -1);
+    }
+
+    const result = await this.findTerm(expression);
+    return result;
   }
 
   formatNote(notedef: any) {
@@ -127,6 +213,81 @@ class Addon {
     }
 
     return note;
+  }
+
+  async loadScripts(list: string[]) {
+    const promises = list.map((name) => this.loadScript(name));
+    const results = await Promise.all(promises);
+    return results.filter((x: any) => {
+      if (x.result) return x.result;
+    });
+  }
+
+  async loadScript(name: string) {
+    try {
+      Services.scriptloader.loadSubScript(
+        this.buildScriptURL(name),
+        _globalThis,
+      );
+    } catch (error) {
+      Zotero.debug(error);
+    }
+
+    let result: { objectname: string; displayname: string } | null = null;
+    try {
+      const SCRIPT = eval(`${name}`);
+      if (SCRIPT.name && typeof SCRIPT === "function") {
+        const script = new SCRIPT();
+        //if (!this.dicts[SCRIPT.name])
+        this.data.dicts[SCRIPT.name] = script;
+        if (typeof script.displayName === "function") {
+          const displayname = await script.displayName();
+          result = { objectname: SCRIPT.name, displayname };
+        } else {
+          const displayname = SCRIPT.name;
+          result = { objectname: SCRIPT.name, displayname };
+        }
+      }
+    } catch (err) {
+      result = null;
+    }
+    return new Promise((resolve, reject) => {
+      resolve({
+        name,
+        result: result,
+      });
+    });
+  }
+
+  buildScriptURL(name: string) {
+    const gitbase =
+      "https://raw.githubusercontent.com/ninja33/ODH/master/src/dict/";
+    let url = name;
+
+    if (url.indexOf("://") == -1) {
+      url = rootURI + "/dict/" + url;
+    } else {
+      //build remote script url with gitbase(https://) if prefix lib:// existing.
+      url =
+        url.indexOf("lib://") != -1 ? gitbase + url.replace("lib://", "") : url;
+    }
+
+    //add .js suffix if missing.
+    url = url.indexOf(".js") == -1 ? url + ".js" : url;
+    return url;
+  }
+
+  async findTerm(expression: string): Promise<string | null> {
+    if (
+      this.data.dicts[this.data.current!] &&
+      typeof this.data.dicts[this.data.current!].findTerm === "function"
+    ) {
+      const notes =
+        await this.data.dicts[this.data.current!].findTerm(expression);
+      return notes;
+    } else {
+      return null;
+    }
   }
 }
 

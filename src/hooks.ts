@@ -33,7 +33,7 @@ async function onStartup() {
     addon.data.bg.api_initBackend();
   }
 
-  addon.init();
+  await addon.init();
 
   ZodhFactory.registerNotifier();
 

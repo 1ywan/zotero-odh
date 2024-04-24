@@ -1,5 +1,4 @@
 import { config } from "../../package.json";
-import { renderPopup } from "./fg/popup";
 import { rangeFromPoint, TextSourceRange } from "./fg/range";
 import { onDomContentLoaded } from "./frame";
 
@@ -56,7 +55,7 @@ export function registerReaderInitializer() {
       // const textSource = new TextSourceRange(range);
       // textSource.selectText(contextDoc!.defaultView!);
 
-      Zotero.ZODH.data.bg
+      addon
         .api_getTranslation(params.annotation.text.trim())
         .then((result: any) => {
           Zotero.ZODH.data.fg.notes = result;

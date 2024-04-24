@@ -27,7 +27,7 @@ async function getOxford(word: string) {
 }
 
 async function locale() {
-  // return await this.postMessage("getLocale", {});
+  return Zotero.locale;
 }
 
 export default {

@@ -12,7 +12,7 @@ export async function isConnected() {
 }
 
 export async function getTranslation(expression: string): Promise<any> {
-  const result = await Zotero.ZODH.data.bg.api_getTranslation(expression);
+  const result = await addon.api_getTranslation(expression);
 
   return result;
 }

@@ -152,21 +152,6 @@ export class ODHBack {
     );
   }
 
-  //   async api_getLocale(params) {
-  //     const { callbackId } = params;
-  //     this.callback(chrome.i18n.getUILanguage(), callbackId);
-  //   }
-
-  async api_getTranslation(expression: string) {
-    // Fix https://github.com/ninja33/ODH/issues/97
-    if (expression.endsWith(".")) {
-      expression = expression.slice(0, -1);
-    }
-
-    const result = await this.findTerm(expression);
-    return result;
-  }
-
   // async api_playAudio(url: string) {
   //   // const { url, callback } = params;
 
@@ -263,14 +248,7 @@ export class ODHBack {
   }
 
   async loadScript(name: string) {
-    // const ctx = { api: { name: "test" } };
-    // Services.scriptloader.loadSubScript(this.buildScriptURL(name), ctx);
-    // Services.scriptloader.loadSubScript(this.buildScriptURL(name), this);
     Services.scriptloader.loadSubScript(this.buildScriptURL(name), _globalThis);
-    // Components.utils.import(
-    //   this.buildScriptURL(name),
-    //   Zotero[config.addonInstance],
-    // );
     let result: { objectname: string; displayname: string } | null = null;
     try {
       const SCRIPT = eval(`${name}`);
