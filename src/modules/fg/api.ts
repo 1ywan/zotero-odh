@@ -11,12 +11,6 @@ export async function isConnected() {
   return result;
 }
 
-export async function getTranslation(expression: string): Promise<any> {
-  const result = await addon.api_getTranslation(expression);
-
-  return result;
-}
-
 export async function addNote(notedef: any) {
   const response = await addon.api_addNote(notedef);
   return response;

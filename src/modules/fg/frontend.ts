@@ -1,7 +1,7 @@
 /* global Popup, rangeFromPoint, TextSourceRange, selectedText, isEmpty, getSentence, isConnected, addNote, getTranslation, playAudio, isValidElement*/
 import { isEmpty, isValidElement, selectedText, getSentence } from "./text";
 import { rangeFromPoint, TextSourceRange } from "./range";
-import { isConnected, getTranslation, addNote, playAudio } from "./api";
+import { isConnected, addNote } from "./api";
 import { Popup } from "./popup";
 import { api_setActionState } from "../frame";
 
@@ -25,8 +25,6 @@ export class ZODHFront {
   popup: Popup;
   timeout: NodeJS.Timeout | null;
   mousemoved: boolean;
-  _window: Window | null;
-  _document: Document | null;
   [key: string]: any;
 
   constructor() {
@@ -44,152 +42,11 @@ export class ZODHFront {
     this.popup = new Popup();
     this.timeout = null;
     this.mousemoved = false;
-    this._window = null;
-    this._document = null;
-
-    window.addEventListener("mousemove", (e: MouseEvent) =>
-      this.onMouseMove(e),
-    );
-    window.addEventListener("mousedown", (e: MouseEvent) =>
-      this.onMouseDown(e),
-    );
-    window.addEventListener("dblclick", (e: MouseEvent) =>
-      this.onDoubleClick(e),
-    );
-    window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
 
     // chrome.runtime.onMessage.addListener(this.onBgMessage.bind(this));
     // window.addEventListener('message', e => this.onFrameMessage(e));
     // document.addEventListener('selectionchange', e => this.userSelectionChanged(e));
     //window.addEventListener('selectionend', e => this.onSelectionEnd(e));
-  }
-
-  isValidZoteroTab() {
-    if (Zotero_Tabs.selectedType != "reader") return false;
-
-    // const _document = Zotero?.Reader?.getByTabID(
-    //   Zotero_Tabs.selectedID,
-    // )._iframe.contentDocument.querySelector("iframe").contentDocument;
-    const activeTab = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID);
-
-    this._document =
-      activeTab._iframe?.contentDocument.querySelector(
-        "iframe",
-      ).contentDocument;
-    this._window =
-      activeTab._iframe?.contentDocument.querySelector("iframe").contentWindow;
-
-    this.popup._document = this._document;
-    this.popup._window = this._window;
-
-    return true;
-  }
-
-  onKeyDown(e: KeyboardEvent) {
-    ztoolkit.log("keydown" + e.code);
-
-    if (!this.isValidZoteroTab()) return;
-
-    if (!this.activateKey) return;
-
-    if (!isValidElement(this._document!)) return;
-
-    if (
-      this.enabled &&
-      this.point !== null &&
-      (e.keyCode === this.activateKey || e.charCode === this.activateKey)
-    ) {
-      const range = rangeFromPoint(this._document!, this.point);
-
-      if (range == null) return;
-      const textSource = new TextSourceRange(range);
-      textSource.selectText(this._window!);
-      this.mousemoved = false;
-      this.onSelectionEnd(e);
-    }
-
-    // if (e.keyCode === this.exitKey || e.charCode === this.exitKey)
-    //   this.popup.hide();
-  }
-
-  onDoubleClick(e: MouseEvent) {
-    if (Zotero_Tabs.selectedType === "reader") {
-      ztoolkit.log("mouse@" + e.x + "," + e.y);
-    }
-    // if (!this.mouseselection) return;
-
-    // if (!isValidElement()) return;
-
-    // if (this.timeout) clearTimeout(this.timeout);
-    // this.mousemoved = false;
-    // this.onSelectionEnd(e);
-  }
-
-  onMouseDown(e: MouseEvent) {
-    if (Zotero_Tabs.selectedType === "reader") {
-      ztoolkit.log("mose down@" + e.x + "," + e.y);
-    }
-    // this.popup.hide();
-  }
-
-  onMouseMove(e: MouseEvent) {
-    this.mousemoved = true;
-    this.point = {
-      x: e.clientX,
-      y: e.clientY,
-    };
-  }
-
-  userSelectionChanged(e: any) {
-    if (!this.enabled || !this.mousemoved || !this.mouseselection) return;
-
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-
-    // wait 500 ms after the last selection change event
-    this.timeout = setTimeout(() => {
-      this.onSelectionEnd(e);
-      //var selEndEvent = new CustomEvent('selectionend');
-      //window.dispatchEvent(selEndEvent);
-    }, 500);
-  }
-
-  async onSelectionEnd(e: MouseEvent | KeyboardEvent) {
-    if (!this.enabled) return;
-
-    if (!this._document) return;
-    if (!isValidElement(this._document)) return;
-
-    // reset selection timeout
-    this.timeout = null;
-    if (!this._window) return;
-    const expression = selectedText(this._window);
-    if (isEmpty(expression)) return;
-
-    const result = await getTranslation(expression);
-    if (result == null || result.length == 0) return;
-    this.notes = this.buildNote(result);
-    this.popup.showNextTo(
-      { x: this.point!.x, y: this.point!.y },
-      await this.renderPopup(this.notes),
-    );
-  }
-
-  onBgMessage(
-    request: { action: any; params: any },
-    sender: any,
-    callback: () => void,
-  ) {
-    const { action, params } = request;
-    const method = this["api_" + action];
-
-    if (typeof method === "function") {
-      params.callback = callback;
-      method.call(this, params);
-    }
-
-    callback();
   }
 
   api_setFrontendOptions(params: { options: any; callback: any }) {
@@ -201,14 +58,6 @@ export class ZODHFront {
     this.maxContext = Number(this.options?.maxcontext);
     this.services = options.services;
     callback();
-  }
-
-  onFrameMessage(e: { data: { action: any; params: any } }) {
-    const { action, params } = e.data;
-    const method = this["api_" + action];
-    if (typeof method === "function") {
-      method.call(this, params);
-    }
   }
 
   async api_addNote(params: { nindex: any; dindex: any; context: any }) {
