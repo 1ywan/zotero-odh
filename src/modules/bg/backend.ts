@@ -15,7 +15,6 @@ export class ODHBack {
   ankiweb: Ankiweb;
 
   constructor() {
-    this.audios = {};
     this.options = null;
 
     this.dicts = {};

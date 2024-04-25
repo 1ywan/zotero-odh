@@ -28,6 +28,7 @@ class Addon {
     current: string | null;
     dictSelected: any;
     dictNamelist: any;
+    audios: { [key: string]: any };
     dialog?: DialogHelper;
     bg: ODHBack | null;
     fg: ZODHFront | null;
@@ -52,6 +53,7 @@ class Addon {
       current: null,
       dictSelected: null,
       dictNamelist: [],
+      audios: [],
       bg: null,
       fg: null,
     };

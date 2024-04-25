@@ -20,17 +20,6 @@ function registerAddNoteLinks(doc: Document) {
         // context: doc.querySelector(".spell-content")?.innerHTML,
         context: null,
       });
-      // window.parent.postMessage(
-      //   {
-      //     action: "addNote",
-      //     params: {
-      //       nindex: ds.nindex,
-      //       dindex: ds.dindex,
-      //       context: document.querySelector(".spell-content").innerHTML,
-      //     },
-      //   },
-      //   "*",
-      // );
     });
   }
 }
@@ -47,18 +36,17 @@ function registerAudioLinks(doc: Document) {
       //   dindex: ds.dindex,
       // });
       const fg = Zotero.ZODH.data.fg;
-      const bg = Zotero.ZODH.data.bg;
       const url = fg.notes[ds.nindex].audios[ds.dindex];
       for (const key in fg.audios) {
-        bg.audios[key].pause();
+        addon.data.audios[key].pause();
       }
 
       try {
-        const audio = bg.audios[url] || doc.createElement("audio");
+        const audio = addon.data.audios[url] || doc.createElement("audio");
         audio.src = url;
         audio.currentTime = 0;
         audio.play();
-        bg.audios[url] = audio;
+        addon.data.audios[url] = audio;
       } catch (err) {
         console.error(err);
       }
