@@ -71,7 +71,6 @@ export class ZODHFront {
     notedef.sentence = context;
     notedef.url = window.location.href;
     const response = await addNote(notedef);
-    // const bg = addon.data.bg;
 
     api_setActionState({ response, params });
   }
