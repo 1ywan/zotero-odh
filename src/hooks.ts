@@ -28,11 +28,6 @@ async function onStartup() {
 
   // const obj = new builtin_encn_Collins();
 
-  if (addon.data.bg === null) {
-    addon.data.bg = new ODHBack();
-    addon.data.bg.api_initBackend();
-  }
-
   await addon.init();
 
   ZodhFactory.registerNotifier();

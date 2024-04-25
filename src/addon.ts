@@ -3,7 +3,6 @@ import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
 import hooks from "./hooks";
 import { createZToolkit } from "./utils/ztoolkit";
 import { ZODHFront } from "./modules/fg/frontend";
-import { ODHBack } from "./modules/bg/backend";
 import { Ankiconnect } from "./modules/bg/ankiconnect";
 import { Ankiweb } from "./modules/bg/ankiweb";
 import { optionsLoad } from "./utils/prefs";
@@ -30,7 +29,6 @@ class Addon {
     dictNamelist: any;
     audios: { [key: string]: any };
     dialog?: DialogHelper;
-    bg: ODHBack | null;
     fg: ZODHFront | null;
   };
   // Lifecycle hooks
@@ -54,7 +52,6 @@ class Addon {
       dictSelected: null,
       dictNamelist: [],
       audios: [],
-      bg: null,
       fg: null,
     };
     this.hooks = hooks;
