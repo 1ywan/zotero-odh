@@ -95,28 +95,6 @@ export class Popup {
   }
 }
 
-export function buildReaderPopup(
-  event: _ZoteroTypes.Reader.EventParams<"renderTextSelectionPopup">,
-) {
-  const { reader, doc, append } = event;
-  const annotation = event.params.annotation;
-  // const result = await Zotero.ZODH.data.bg.api_getTranslation(
-  //   annotation.text.trim(),
-  // );
-  // const content = await renderPopup(result);
-  // append(
-  //   ztoolkit.UI.createElement(doc, "fragment", {
-  //     children: [{ tag: "h1", properties: { innerText: content } }],
-  //   }),
-  // );
-  const element = ztoolkit.UI.createElement(doc, "fragment", {
-    children: [{ tag: "h1", properties: { innerText: "hello,world" } }],
-  });
-  append(element);
-
-  return element;
-}
-
 export async function renderPopup(notes: any[]) {
   let content = "";
   // const services = this.options ? this.options.services : "";
