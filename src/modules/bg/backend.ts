@@ -3,8 +3,6 @@ import { config } from "../../../package.json";
 import { Ankiconnect } from "./ankiconnect";
 import { Ankiweb } from "./ankiweb";
 import { sanitizeOptions } from "./utils";
-import { Deinflector } from "./deinflector";
-import { Builtin } from "./builtin";
 
 export class ODHBack {
   [x: string]: any;
@@ -30,20 +28,6 @@ export class ODHBack {
     // const defaultscripts = ["builtin_encn_Collins", "encn_Baicizhan"];
     // this.loadScripts(defaultscripts);
     this.current = "builtin_encn_Collins";
-    //setup lemmatizer
-
-    //Setup builtin dictionary data
-    this.builtin = new Builtin();
-    this.builtin.loadData();
-
-    // this.agent = new Agent(document.getElementById('sandbox').contentWindow);
-
-    // chrome.runtime.onMessage.addListener(this.onMessage.bind(this));
-    // window.addEventListener('message', e => this.onSandboxMessage(e));
-    // chrome.runtime.onInstalled.addListener(this.onInstalled.bind(this));
-    // chrome.tabs.onCreated.addListener((tab) => this.onTabReady(tab.id));
-    // chrome.tabs.onUpdated.addListener(this.onTabReady.bind(this));
-    // chrome.commands.onCommand.addListener((command) => this.onCommand(command));
   }
 
   //   onCommand(command) {
@@ -136,13 +120,6 @@ export class ODHBack {
     } else {
       return null;
     }
-  }
-
-  async api_getBuiltin(dict: string, word: string) {
-    // const { dict, word, callbackId } = params;
-    return new Promise((resolve, reject) =>
-      resolve(this.builtin.findTerm(dict, word)),
-    );
   }
 
   // async api_playAudio(url: string) {

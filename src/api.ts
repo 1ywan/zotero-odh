@@ -9,9 +9,8 @@ async function fetch(url: string) {
 }
 
 async function getBuiltin(dict: string, word: string) {
-  // return await this.postMessage("getBuiltin", { dict, word });
   return new Promise((resolve, reject) =>
-    resolve(Zotero[config.addonInstance].data.bg.api_getBuiltin(dict, word)),
+    resolve(addon.api_getBuiltin(dict, word)),
   );
 }
 

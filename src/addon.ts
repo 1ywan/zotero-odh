@@ -165,6 +165,12 @@ class Addon {
     return this.deinflector?.deinflect(word);
   }
 
+  async api_getBuiltin(dict: string, word: string) {
+    // const { dict, word, callbackId } = params;
+    return new Promise((resolve, reject) =>
+      resolve(this.builtin?.findTerm(dict, word)),
+    );
+  }
   async api_addNote(notedef: any) {
     const note = this.formatNote(notedef);
     return new Promise((resolve, reject) => {
