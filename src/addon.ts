@@ -7,6 +7,8 @@ import { ODHBack } from "./modules/bg/backend";
 import { Ankiconnect } from "./modules/bg/ankiconnect";
 import { Ankiweb } from "./modules/bg/ankiweb";
 import { optionsLoad } from "./utils/prefs";
+import { Deinflector } from "./modules/bg/deinflector";
+import { Builtin } from "./modules/bg/builtin";
 
 class Addon {
   public data: {
@@ -38,6 +40,9 @@ class Addon {
   public ankiweb: Ankiweb | null;
   public target: Ankiconnect | Ankiweb | null;
 
+  public deinflector: Deinflector | null;
+  public builtin: Builtin | null;
+
   constructor() {
     this.data = {
       alive: true,
@@ -55,7 +60,8 @@ class Addon {
     this.ankiconnect = null;
     this.ankiweb = null;
     this.target = null;
-
+    this.deinflector = null;
+    this.builtin = null;
     // this.api = api;
   }
 
@@ -63,6 +69,12 @@ class Addon {
     this.ankiconnect = new Ankiconnect();
     this.ankiweb = new Ankiweb();
     this.target = this.ankiconnect;
+
+    this.deinflector = new Deinflector();
+    this.deinflector.loadData();
+
+    this.builtin = new Builtin();
+    this.builtin.loadData();
 
     const options = optionsLoad();
     await this.opt_optionsChanged(options);
@@ -147,6 +159,10 @@ class Addon {
       this.data.current = selected;
       return;
     }
+  }
+
+  async api_Deinflect(word: string) {
+    return this.deinflector?.deinflect(word);
   }
 
   async api_addNote(notedef: any) {

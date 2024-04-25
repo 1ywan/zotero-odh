@@ -15,7 +15,6 @@ export class ODHBack {
   target: Ankiconnect | Ankiweb | null;
   ankiconnect: Ankiconnect;
   ankiweb: Ankiweb;
-  deinflector: Deinflector;
 
   constructor() {
     this.audios = {};
@@ -32,8 +31,6 @@ export class ODHBack {
     // this.loadScripts(defaultscripts);
     this.current = "builtin_encn_Collins";
     //setup lemmatizer
-    this.deinflector = new Deinflector();
-    this.deinflector.loadData();
 
     //Setup builtin dictionary data
     this.builtin = new Builtin();
@@ -139,10 +136,6 @@ export class ODHBack {
     } else {
       return null;
     }
-  }
-
-  async api_Deinflect(word: string) {
-    return await this.deinflector.deinflect(word);
   }
 
   async api_getBuiltin(dict: string, word: string) {

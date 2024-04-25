@@ -1,10 +1,7 @@
 import { config } from "../package.json";
 
 async function deinflect(word: string) {
-  // return await this.postMessage("Deinflect", { word });
-  return new Promise((resolve, reject) =>
-    resolve(Zotero[config.addonInstance].data.bg.api_Deinflect(word)),
-  );
+  return new Promise((resolve, reject) => resolve(addon.api_Deinflect(word)));
 }
 
 async function fetch(url: string) {
