@@ -15,7 +15,3 @@ export async function addNote(notedef: any) {
   const response = await addon.api_addNote(notedef);
   return response;
 }
-
-export async function playAudio(url: string) {
-  await Zotero.ZODH.data.bg.api_playAudio(url);
-}

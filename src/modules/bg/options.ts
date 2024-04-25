@@ -246,14 +246,9 @@ async function onAnkiTypeChanged(e: any, doc: Document) {
 
 async function onLoginClicked(e: any, doc: Document) {
   if (e.originalEvent) {
-    const bg = addon.data.bg;
-    // const options = await optionsLoad();
-    // options.id = $('#id').val();
-    // options.password = $('#password').val();
-
     (doc.querySelector("#services-status") as HTMLElement)!.innerText =
       "msgConnecting";
-    await bg!.ankiweb.initConnection({}, true); // set param forceLogout = true
+    await addon.ankiweb?.initConnection({}, true); // set param forceLogout = true
 
     // const newOptions = await odhback().opt_optionsChanged(options);
     updateAnkiStatus(doc);
@@ -262,10 +257,6 @@ async function onLoginClicked(e: any, doc: Document) {
 
 async function onServicesChanged(e: any, doc: Document) {
   if (e.originalEvent) {
-    // const options = await optionsLoad();
-    // const bg = addon.data.bg;
-    // options.services = (doc.querySelector('#services') as HTMLSelectElement)?.value;
-    // const newOptions = await bg?.opt_optionsChanged(options);
     updateAnkiStatus(doc);
   }
 }
@@ -273,10 +264,7 @@ async function onServicesChanged(e: any, doc: Document) {
 async function onSaveClicked(e: any, doc: Document) {
   if (!e.originalEvent) return;
 
-  const bg = addon.data.bg;
-
   (doc.querySelector("#gif-load") as HTMLElement).style.display = "";
-  // const newOptions = await bg?.opt_optionsChanged(options);
   (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
 
   (doc.querySelector("#gif-good") as HTMLImageElement).style.display = "";
