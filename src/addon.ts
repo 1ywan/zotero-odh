@@ -18,11 +18,7 @@ class Addon {
     locale?: {
       current: any;
     };
-    prefs?: {
-      window: Window;
-      columns: Array<ColumnOptions>;
-      rows: Array<{ [dataKey: string]: string }>;
-    };
+
     dicts: { [key: string]: any };
     current: string | null;
     dictSelected: any;

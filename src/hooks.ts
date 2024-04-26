@@ -7,10 +7,8 @@ import {
 } from "./modules/examples";
 import { ZodhFactory } from "./modules/zodh";
 import { ZODHFront } from "./modules/fg/frontend";
-import { ODHBack } from "./modules/bg/backend";
 import { config } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
-import { registerPrefsScripts } from "./modules/preferenceScript";
 import { createZToolkit } from "./utils/ztoolkit";
 import { registerReaderInitializer } from "./modules/reader";
 import { onReady } from "./modules/bg/options";
@@ -96,7 +94,6 @@ async function onNotify(
 async function onPrefsEvent(type: string, data: { [key: string]: any }) {
   switch (type) {
     case "load":
-      registerPrefsScripts(data.window);
       await onReady(data.window.document);
       break;
     default:
