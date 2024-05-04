@@ -16,17 +16,6 @@ export class Builtin {
   }
 
   static async loadData(path: string) {
-    // return new Promise((resolve, reject) => {
-    //   const request = {
-    //     url: path,
-    //     type: "GET",
-    //     dataType: "json",
-    //     timeout: 5000,
-    //     error: (xhr, status, error) => reject(error),
-    //     success: (data, status) => resolve(data),
-    //   };
-    //   $.ajax(request);
-    // });
     const data = await fetch(path).then((response) => {
       if (response.ok) {
         return response.json();
