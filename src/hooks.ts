@@ -1,10 +1,4 @@
-import {
-  BasicExampleFactory,
-  HelperExampleFactory,
-  KeyExampleFactory,
-  PromptExampleFactory,
-  UIExampleFactory,
-} from "./modules/examples";
+import { HelperExampleFactory, KeyExampleFactory } from "./modules/examples";
 import { ZodhFactory } from "./modules/zodh";
 import { config } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
@@ -20,7 +14,6 @@ async function onStartup() {
   ]);
   initLocale();
 
-  // BasicExampleFactory.registerPrefs();
   ZodhFactory.registerPrefs();
 
   // const obj = new builtin_encn_Collins();
@@ -37,8 +30,6 @@ async function onStartup() {
 async function onMainWindowLoad(win: Window): Promise<void> {
   // Create ztoolkit for every window
   addon.data.ztoolkit = createZToolkit();
-
-  UIExampleFactory.registerStyleSheet();
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
@@ -66,17 +57,7 @@ async function onNotify(
 ) {
   // You can add your code to the corresponding notify type
   ztoolkit.log("notify", event, type, ids, extraData);
-  if (
-    event == "select" &&
-    type == "tab" &&
-    extraData[ids[0]].type == "reader"
-  ) {
-    BasicExampleFactory.exampleNotifierCallback();
-  } else if (
-    event == "add" &&
-    type == "tab" &&
-    extraData[ids[0]].type == "reader"
-  ) {
+  if (event == "add" && type == "tab" && extraData[ids[0]].type == "reader") {
     ZodhFactory.registerKeydownEvent();
   } else {
     return;
