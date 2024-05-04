@@ -1,11 +1,8 @@
 /* global Popup, rangeFromPoint, TextSourceRange, selectedText, isEmpty, getSentence, isConnected, addNote, getTranslation, playAudio, isValidElement*/
 import { isEmpty, isValidElement, selectedText, getSentence } from "./text";
-import { rangeFromPoint, TextSourceRange } from "./range";
-import { isConnected, addNote } from "./api";
-import { Popup } from "./popup";
 import { api_setActionState } from "../frame";
 
-export class ZODHFront {
+export class Translation {
   options: {
     hotkey: number;
     maxcontext: number;
@@ -16,16 +13,13 @@ export class ZODHFront {
   notes: any;
   sentence: null;
   audio: { [key: string]: any } | null;
-  enabled: boolean;
-  mouseselection: boolean;
   activateKey: number;
   exitKey: number;
   maxContext: number;
   services: string;
-  popup: Popup;
-  timeout: NodeJS.Timeout | null;
-  mousemoved: boolean;
   [key: string]: any;
+  _window: Window | null;
+  _document: Document | null;
 
   constructor() {
     this.options = null;
@@ -33,31 +27,12 @@ export class ZODHFront {
     this.notes = null;
     this.sentence = null;
     this.audio = null;
-    this.enabled = true;
-    this.mouseselection = true;
     this.activateKey = 16; // shift 16, ctl 17, alt 18
     this.exitKey = 27; // esc 27
     this.maxContext = 1; //max context sentence #
     this.services = "none";
-    this.popup = new Popup();
-    this.timeout = null;
-    this.mousemoved = false;
-
-    // chrome.runtime.onMessage.addListener(this.onBgMessage.bind(this));
-    // window.addEventListener('message', e => this.onFrameMessage(e));
-    // document.addEventListener('selectionchange', e => this.userSelectionChanged(e));
-    //window.addEventListener('selectionend', e => this.onSelectionEnd(e));
-  }
-
-  api_setFrontendOptions(params: { options: any; callback: any }) {
-    const { options, callback } = params;
-    this.options = options;
-    this.enabled = options.enabled;
-    this.mouseselection = options.mouseselection;
-    this.activateKey = Number(this.options?.hotkey);
-    this.maxContext = Number(this.options?.maxcontext);
-    this.services = options.services;
-    callback();
+    this._window = null;
+    this._document = null;
   }
 
   async api_addNote(params: { nindex: any; dindex: any; context: any }) {
@@ -73,38 +48,6 @@ export class ZODHFront {
     const response = await addNote(notedef);
 
     api_setActionState({ response, params });
-  }
-
-  async api_playAudio(params: { nindex: any; dindex: any }) {
-    const { nindex, dindex } = params;
-    const url = this.notes[nindex].audios[dindex];
-    for (const key in this.audios) {
-      this.audios[key].pause();
-    }
-
-    try {
-      const audio = this.audios[url] || new Audio(url);
-      audio.currentTime = 0;
-      audio.play();
-      this.audios[url] = audio;
-    } catch (err) {
-      console.error(err);
-    }
-    // const response = await playAudio(url);
-  }
-
-  api_playSound(params: { sound: any }) {
-    const url = params.sound;
-
-    for (const key in this.audio) {
-      this.audio[key].pause();
-    }
-
-    const audio = this.audio![url] || new Audio(url);
-    audio.currentTime = 0;
-    audio.play();
-
-    this.audio![url] = audio;
   }
 
   buildNote(_window: Window, result: ConcatArray<never>) {
@@ -255,3 +198,13 @@ export class ZODHFront {
   }
 }
 // window.odhfront = new ODHFront();
+
+async function isConnected() {
+  const result = await addon.opt_getVersion();
+  return result;
+}
+
+async function addNote(notedef: any) {
+  const response = await addon.api_addNote(notedef);
+  return response;
+}

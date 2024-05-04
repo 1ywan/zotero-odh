@@ -31,13 +31,9 @@ function registerAudioLinks(doc: Document) {
       e.preventDefault();
       if (e.currentTarget == null) return;
       const ds = (e.currentTarget as HTMLDivElement).dataset;
-      // Zotero.ZODH.data.fg.api_playAudio({
-      //   nindex: ds.nindex,
-      //   dindex: ds.dindex,
-      // });
-      const fg = Zotero.ZODH.data.fg;
-      const url = fg.notes[ds.nindex].audios[ds.dindex];
-      for (const key in fg.audios) {
+      const fg = addon.data.fg;
+      const url = fg?.notes[ds.nindex].audios[ds.dindex];
+      for (const key in fg?.audios) {
         addon.data.audios[key].pause();
       }
 
@@ -108,14 +104,6 @@ export function onDomContentLoaded(doc: Document) {
   // registerSoundLinks();
   // registerHiddenClass();
   initSpellnTranslation(doc);
-}
-
-function onMessage(e) {
-  const { action, params } = e.data;
-  const method = window["api_" + action];
-  if (typeof method === "function") {
-    method(params);
-  }
 }
 
 export function api_setActionState(result) {

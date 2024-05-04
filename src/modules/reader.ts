@@ -1,6 +1,7 @@
 import { config } from "../../package.json";
 import { rangeFromPoint, TextSourceRange } from "./fg/range";
 import { onDomContentLoaded } from "./frame";
+import { Translation } from "./fg/frontend";
 
 // import { SVGIcon } from "../utils/config";
 // import { addTranslateAnnotationTask } from "../utils/task";
@@ -44,28 +45,20 @@ export function registerReaderInitializer() {
         : reader._internalReader._secondaryViewContainer;
       const contextDoc = (lastContainer.childNodes[0] as HTMLIFrameElement)
         .contentDocument;
-      const point = {
-        x: params.annotation.position.rects[0][0],
-        y: params.annotation.position.rects[0][1],
-      };
-
-      // const range = rangeFromPoint(contextDoc!, point);
-
-      // if (range == null) return;
-      // const textSource = new TextSourceRange(range);
-      // textSource.selectText(contextDoc!.defaultView!);
 
       addon
         .api_getTranslation(params.annotation.text.trim())
         .then((result: any) => {
-          Zotero.ZODH.data.fg.notes = result;
-          const notes = Zotero.ZODH.data.fg.buildNote(
+          const translation = new Translation();
+          translation._document = contextDoc;
+          translation._window = contextDoc?.defaultView as Window;
+          addon.data.fg = translation;
+          addon.data.fg.notes = result;
+          const notes = addon.data.fg.buildNote(
             contextDoc!.defaultView,
             result,
           );
-          return Zotero.ZODH.data.fg.renderPopup(notes);
-
-          // return renderPopup(result);
+          return addon.data.fg.renderPopup(notes);
         })
         .then((content: any) => {
           popup.style.visibility = "visible";
@@ -76,14 +69,6 @@ export function registerReaderInitializer() {
 
           onDomContentLoaded(doc);
         });
-
-      // setTimeout(
-      //   () =>
-      //     container.replaceChildren(
-      //       "Translated text: " + params.annotation.text,
-      //     ),
-      //   1000,
-      // );
     },
     config.addonID,
   );

@@ -2,7 +2,7 @@ import { ColumnOptions } from "zotero-plugin-toolkit/dist/helpers/virtualizedTab
 import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
 import hooks from "./hooks";
 import { createZToolkit } from "./utils/ztoolkit";
-import { ZODHFront } from "./modules/fg/frontend";
+import { Translation } from "./modules/fg/frontend";
 import { Ankiconnect } from "./modules/bg/ankiconnect";
 import { Ankiweb } from "./modules/bg/ankiweb";
 import { optionsLoad } from "./utils/prefs";
@@ -25,7 +25,7 @@ class Addon {
     dictNamelist: any;
     audios: { [key: string]: any };
     dialog?: DialogHelper;
-    fg: ZODHFront | null;
+    fg: Translation | null;
   };
   // Lifecycle hooks
   public hooks: typeof hooks;

@@ -6,7 +6,6 @@ import {
   UIExampleFactory,
 } from "./modules/examples";
 import { ZodhFactory } from "./modules/zodh";
-import { ZODHFront } from "./modules/fg/frontend";
 import { config } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
 import { createZToolkit } from "./utils/ztoolkit";
@@ -38,7 +37,6 @@ async function onStartup() {
 async function onMainWindowLoad(win: Window): Promise<void> {
   // Create ztoolkit for every window
   addon.data.ztoolkit = createZToolkit();
-  addon.data.fg = new ZODHFront();
 
   UIExampleFactory.registerStyleSheet();
 }
