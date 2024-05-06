@@ -3,7 +3,7 @@ import { config } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
 import { createZToolkit } from "./utils/ztoolkit";
 import { registerReaderInitializer } from "./modules/reader";
-import { onReady } from "./modules/bg/options";
+import { onReady } from "./modules/options";
 
 async function onStartup() {
   await Promise.all([

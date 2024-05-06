@@ -3,11 +3,11 @@ import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
 import hooks from "./hooks";
 import { createZToolkit } from "./utils/ztoolkit";
 import { Translation } from "./modules/fg/frontend";
-import { Ankiconnect } from "./modules/bg/ankiconnect";
-import { Ankiweb } from "./modules/bg/ankiweb";
+import { Ankiconnect } from "./modules/ankiconnect";
+import { Ankiweb } from "./modules/ankiweb";
 import { optionsLoad } from "./utils/prefs";
-import { Deinflector } from "./modules/bg/deinflector";
-import { Builtin } from "./modules/bg/builtin";
+import { Deinflector } from "./modules/deinflector";
+import { Builtin } from "./modules/builtin";
 
 class Addon {
   public data: {
