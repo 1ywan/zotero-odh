@@ -1,6 +1,6 @@
 /* global Popup, rangeFromPoint, TextSourceRange, selectedText, isEmpty, getSentence, isConnected, addNote, getTranslation, playAudio, isValidElement*/
 import { isEmpty, isValidElement, selectedText, getSentence } from "./text";
-import { api_setActionState } from "../frame";
+import { api_setActionState } from "./frame";
 
 export class Translation {
   options: {

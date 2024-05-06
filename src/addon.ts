@@ -2,7 +2,7 @@ import { ColumnOptions } from "zotero-plugin-toolkit/dist/helpers/virtualizedTab
 import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
 import hooks from "./hooks";
 import { createZToolkit } from "./utils/ztoolkit";
-import { Translation } from "./modules/fg/frontend";
+import { Translation } from "./modules/frontend";
 import { Ankiconnect } from "./modules/ankiconnect";
 import { Ankiweb } from "./modules/ankiweb";
 import { optionsLoad } from "./utils/prefs";

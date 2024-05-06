@@ -1,7 +1,7 @@
 import { config } from "../../package.json";
-import { rangeFromPoint, TextSourceRange } from "./fg/range";
+import { rangeFromPoint, TextSourceRange } from "./range";
 import { onDomContentLoaded } from "./frame";
-import { Translation } from "./fg/frontend";
+import { Translation } from "./frontend";
 
 // import { SVGIcon } from "../utils/config";
 // import { addTranslateAnnotationTask } from "../utils/task";
