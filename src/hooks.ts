@@ -1,9 +1,10 @@
-import { ZodhFactory } from "./modules/zodh";
 import { config } from "../package.json";
-import { getString, initLocale } from "./utils/locale";
+import { initLocale } from "./utils/locale";
 import { createZToolkit } from "./utils/ztoolkit";
 import { registerReaderInitializer } from "./modules/reader";
 import { onReady } from "./modules/options";
+import { readerOpenHook } from "./modules/inject";
+import { Addon } from "./addon";
 
 async function onStartup() {
   await Promise.all([
@@ -13,13 +14,11 @@ async function onStartup() {
   ]);
   initLocale();
 
-  ZodhFactory.registerPrefs();
+  Addon.registerPrefs();
 
   // const obj = new builtin_encn_Collins();
 
   await addon.init();
-
-  ZodhFactory.registerNotifier();
 
   registerReaderInitializer();
 
@@ -29,6 +28,8 @@ async function onStartup() {
 async function onMainWindowLoad(win: Window): Promise<void> {
   // Create ztoolkit for every window
   addon.data.ztoolkit = createZToolkit();
+
+  await readerOpenHook();
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {

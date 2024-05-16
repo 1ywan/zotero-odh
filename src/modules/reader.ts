@@ -11,24 +11,6 @@ export function registerReaderInitializer() {
     "renderTextSelectionPopup",
     (event) => {
       const { reader, doc, params, append } = event;
-      let link = doc.createElement("link");
-      link.rel = "stylesheet";
-      link.type = "text/css";
-      link.href = "chrome://zodh/content/client.css";
-      doc.head.append(link);
-
-      link = doc.createElement("link");
-      link.rel = "stylesheet";
-      link.type = "text/css";
-      link.href = "chrome://zodh/content/frame.css";
-      doc.head.append(link);
-
-      link = doc.createElement("link");
-      link.rel = "stylesheet";
-      link.type = "text/css";
-      link.href = "chrome://zodh/content/spell.css";
-      doc.head.append(link);
-
       const popup = doc.createElement("div");
       popup.id = "odh-popup";
       popup.addEventListener("mousedown", (e: Event) => e.stopPropagation());
@@ -66,7 +48,6 @@ export function registerReaderInitializer() {
           // popup.srcdoc = content;
           // popup.src = "chrome://zodh/content/popup.html";
           popup.innerHTML = content;
-
           onDomContentLoaded(doc);
         });
     },
