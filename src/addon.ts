@@ -9,7 +9,7 @@ import { optionsLoad } from "./utils/prefs";
 import { Deinflector } from "./modules/deinflector";
 import { Builtin } from "./modules/builtin";
 
-class Addon {
+export class Addon {
   public data: {
     alive: boolean;
     // Env type, see build.js
