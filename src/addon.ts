@@ -8,6 +8,8 @@ import { Ankiweb } from "./modules/ankiweb";
 import { optionsLoad } from "./utils/prefs";
 import { Deinflector } from "./modules/deinflector";
 import { Builtin } from "./modules/builtin";
+import { config } from "../package.json";
+import { getString } from "./utils/locale";
 
 export class Addon {
   public data: {
@@ -37,6 +39,17 @@ export class Addon {
 
   public deinflector: Deinflector | null;
   public builtin: Builtin | null;
+
+  static registerPrefs() {
+    const prefOptions = {
+      pluginID: config.addonID,
+      src: rootURI + "chrome/content/preferences.xhtml",
+      label: getString("prefs-title"),
+      image: `chrome://${config.addonRef}/content/icons/favicon.png`,
+      defaultXUL: true,
+    };
+    ztoolkit.PreferencePane.register(prefOptions);
+  }
 
   constructor() {
     this.data = {
