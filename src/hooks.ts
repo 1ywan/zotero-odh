@@ -3,7 +3,7 @@ import { initLocale } from "./utils/locale";
 import { createZToolkit } from "./utils/ztoolkit";
 import { registerReaderInitializer } from "./modules/reader";
 import { onReady } from "./modules/options";
-import { readerOpenHook } from "./modules/inject";
+import { onReaderOpened, readerOpenHook } from "./modules/inject";
 import { Addon } from "./addon";
 
 async function onStartup() {
@@ -30,6 +30,10 @@ async function onMainWindowLoad(win: Window): Promise<void> {
   addon.data.ztoolkit = createZToolkit();
 
   await readerOpenHook();
+
+  Zotero.Reader._readers.map(async (reader) => {
+    await onReaderOpened(reader);
+  });
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {

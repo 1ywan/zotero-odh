@@ -25,7 +25,7 @@ export async function readerOpenHook() {
   });
 }
 
-async function onReaderOpened(reader: _ZoteroTypes.ReaderInstance) {
+export async function onReaderOpened(reader: _ZoteroTypes.ReaderInstance) {
   Zotero.log(Zotero.Reader._readers);
   const doc = reader._iframe?.contentDocument as Document;
   const head = doc.head;
