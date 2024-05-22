@@ -73,12 +73,11 @@
   cursor: pointer;
   position: relative;
   float: right;
+  background: url("chrome://zodh/content/fg/img/plus.png") no-repeat !important;
+  width: 16px;
+  height: 16px;
+  border: none;
 }
-
-.odh-addnote {
-  content: url("chrome://zodh/content/fg/img/plus.png")
-}
-
 
 .odh-addnote-disabled{
   cursor: not-allowed;
@@ -94,12 +93,20 @@
 .odh-playaudio {
   cursor: pointer;
   margin: 0 3px;
-  content: url("chrome://zodh/content/fg/img/play.png")
+  height: 16px;
+  width: 16px;
+  background: url("chrome://zodh/content/fg/img/play.png") no-repeat;
+  display: inline-block;
 }
 
 .odh-playsound {
   vertical-align: text-bottom;
   margin: 0 3px;
+  height: 16px;
+  width: 16px;
+  background: url("chrome://zodh/content/fg/img/play.png") no-repeat;
+  display: inline-block;
+  /* border: none; */
 }
 
 hr {
