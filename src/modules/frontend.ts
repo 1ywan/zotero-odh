@@ -108,7 +108,7 @@ export class Translation {
             // audiosegment += `<img class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}" src="${
             //   rootURI + "fg/img/play.png"
             // }"/>`;
-            audiosegment += `<img class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}"/>`;
+            audiosegment += `<div class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}"></div>`;
         }
       }
       content += `
@@ -122,7 +122,7 @@ export class Translation {
         const button =
           services == "none" || services == ""
             ? ""
-            : `<img ${imageclass} data-nindex="${nindex}" data-dindex="${dindex}"/>`;
+            : `<div ${imageclass} data-nindex="${nindex}" data-dindex="${dindex}"></div>`;
         content += `<div class="odh-definition">${button}${definition}</div>`;
       }
       content += "</div>";
