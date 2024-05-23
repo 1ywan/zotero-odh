@@ -26,7 +26,6 @@ export class Addon {
     dictSelected: any;
     dictNamelist: any;
     audios: { [key: string]: any };
-    dialog?: DialogHelper;
     fg: Translation | null;
   };
   // Lifecycle hooks
@@ -318,6 +317,23 @@ export class Addon {
     } else {
       return null;
     }
+  }
+
+  preLoadIcons() {
+    const plus = document.createElement("img");
+    plus.src = "chrome://zodh/content/fg/img/plus.png";
+
+    const load = document.createElement("img");
+    load.src = "chrome://zodh/content/fg/img/load.gif";
+
+    const good = document.createElement("img");
+    load.src = "chrome://zodh/content/fg/img/good.png";
+
+    const fail = document.createElement("img");
+    load.src = "chrome://zodh/content/fg/img/fail.png";
+
+    const play = document.createElement("img");
+    load.src = "chrome://zodh/content/fg/img/play.png";
   }
 }
 

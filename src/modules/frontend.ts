@@ -130,7 +130,8 @@ export class Translation {
     // content += `<textarea id="odh-context" class="odh-sentence">${this.sentence}</textarea>`;
     content += '<div id="odh-container" class="odh-sentence"></div>';
     // return this.popupHeader() + content + this.popupFooter();
-    return `<div class="odh-notes">` + content + this.popupIcons();
+    // return `<div class="odh-notes">` + content + this.popupIcons();
+    return `<div class="odh-notes">` + content;
   }
   popupIcons() {
     const root = rootURI;
@@ -153,8 +154,8 @@ export class Translation {
                   <img id="play" src="chrome://zodh/content/fg/img/play.png"/>
                   <div id="context">${this.sentence}</div>
                   <div id="monolingual">${monolingual}</div>
-                  </div>
-                  `;
+              </div>
+            `;
   }
   popupHeader() {
     // const root = chrome.runtime.getURL("/");
@@ -166,35 +167,6 @@ export class Translation {
               </head>
               <body style="margin:0px;">
               <div class="odh-notes">`;
-  }
-
-  popupFooter() {
-    const root = rootURI;
-    const services = this.options ? this.options.services : "";
-    const image = services == "ankiconnect" ? "plus.png" : "cloud.png";
-    // const button = chrome.runtime.getURL("fg/img/" + image);
-    const button = rootURI + "fg/img/" + image;
-    const monolingual = this.options
-      ? this.options.monolingual == "1"
-        ? 1
-        : 0
-      : 0;
-
-    return `
-              </div>
-              <div class="icons hidden"">
-                  <img id="plus" src="${button}"/>
-                  <img id="load" src="${root + "fg/img/load.gif"}"/>
-                  <img id="good" src="${root + "fg/img/good.png"}"/>
-                  <img id="fail" src="${root + "fg/img/fail.png"}"/>
-                  <img id="play" src="${root + "fg/img/play.png"}"/>
-                  <div id="context">${this.sentence}</div>
-                  <div id="monolingual">${monolingual}</div>
-                  </div>
-              <script src="${root + "fg/js/spell.js"}"></script>
-              <script src="${root + "fg/js/frame.js"}"></script>
-              </body>
-          </html>`;
   }
 }
 // window.odhfront = new ODHFront();
