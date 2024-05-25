@@ -130,8 +130,8 @@ export class Translation {
     // content += `<textarea id="odh-context" class="odh-sentence">${this.sentence}</textarea>`;
     content += '<div id="odh-container" class="odh-sentence"></div>';
     // return this.popupHeader() + content + this.popupFooter();
-    // return `<div class="odh-notes">` + content + this.popupIcons();
-    return `<div class="odh-notes">` + content;
+    return `<div class="odh-notes">` + content + this.popupIcons();
+    // return `<div class="odh-notes">` + content;
   }
   popupIcons() {
     const root = rootURI;
@@ -147,11 +147,6 @@ export class Translation {
 
     return `
               <div class="icons hidden"">
-                  <img id="plus" src="${button}"/>
-                  <img id="load" src="chrome://zodh/content/fg/img/load.gif"/>
-                  <img id="good" src="chrome://zodh/content/fg/img/good.png"/>
-                  <img id="fail" src="chrome://zodh/content/fg/img/fail.png"/>
-                  <img id="play" src="chrome://zodh/content/fg/img/play.png"/>
                   <div id="context">${this.sentence}</div>
                   <div id="monolingual">${monolingual}</div>
               </div>
