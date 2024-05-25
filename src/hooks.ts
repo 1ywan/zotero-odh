@@ -3,7 +3,7 @@ import { initLocale } from "./utils/locale";
 import { createZToolkit } from "./utils/ztoolkit";
 import { registerReaderInitializer } from "./modules/reader";
 import { onReady } from "./modules/options";
-import { onReaderOpened, readerOpenHook } from "./modules/inject";
+import { injectStyle, onReaderOpened, readerOpenHook } from "./modules/inject";
 import { Addon } from "./addon";
 
 async function onStartup() {
@@ -26,15 +26,38 @@ async function onStartup() {
 }
 
 async function onMainWindowLoad(win: Window): Promise<void> {
+  await new Promise((resolve) => {
+    if (win.document.readyState !== "complete") {
+      win.document.addEventListener("readystatechange", () => {
+        if (win.document.readyState === "complete") {
+          resolve(void 0);
+        }
+      });
+    }
+    resolve(void 0);
+  });
+
+  injectStyle(win);
+  const callback = {
+    notify: async (
+      event: string,
+      type: string,
+      ids: number[] | string[],
+      extraData: { [key: string]: any },
+    ) => {
+      await onNotify(event, type, ids, extraData);
+    },
+  };
+  Zotero.Notifier.registerObserver(callback, ["tab"]);
+
   // Create ztoolkit for every window
   addon.data.ztoolkit = createZToolkit();
   addon.preLoadIcons();
 
-  await readerOpenHook();
-
-  Zotero.Reader._readers.map(async (reader) => {
-    await onReaderOpened(reader);
-  });
+  // await readerOpenHook();
+  // Zotero.Reader._readers.forEach(async (reader) => {
+  //   await onReaderOpened(reader);
+  // });
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {
@@ -60,8 +83,14 @@ async function onNotify(
 ) {
   // You can add your code to the corresponding notify type
   ztoolkit.log("notify", event, type, ids, extraData);
-  if (event == "add" && type == "tab" && extraData[ids[0]].type == "reader") {
-    ZodhFactory.registerKeydownEvent();
+  if (event == "add" && type == "tab") {
+    let reader = null;
+    try {
+      reader = Zotero.Reader.getByTabID(ids[0] as string);
+    } catch (e) {
+      return;
+    }
+    await onReaderOpened(reader);
   } else {
     return;
   }

@@ -9,9 +9,8 @@ export async function readerOpenHook() {
         Zotero.log("target done");
 
         if (!reader) return;
-        await reader._waitForReader();
 
-        await onReaderOpened(reader);
+        // await onReaderOpened(reader);
         Zotero.log("apply done");
         return reader;
       });
@@ -25,8 +24,20 @@ export async function readerOpenHook() {
   });
 }
 
+export function injectStyle(window: Window) {
+  const doc = window.document;
+  const link = doc.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = "chrome://zodh/content/frame.css";
+  doc.documentElement.appendChild(link);
+}
+
 export async function onReaderOpened(reader: _ZoteroTypes.ReaderInstance) {
+  await reader._waitForReader();
   Zotero.log(Zotero.Reader._readers);
+  Zotero.log(reader._iframeWindow);
+
   const doc = reader._iframe?.contentDocument as Document;
   const head = doc.head;
   Zotero.log("client-style write in");
