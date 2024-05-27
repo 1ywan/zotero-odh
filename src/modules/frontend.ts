@@ -18,8 +18,8 @@ export class Translation {
   maxContext: number;
   services: string;
   [key: string]: any;
-  _window: Window | null;
-  _document: Document | null;
+  _window?: Window;
+  _document?: Document;
 
   constructor() {
     this.options = null;
@@ -31,8 +31,6 @@ export class Translation {
     this.exitKey = 27; // esc 27
     this.maxContext = 1; //max context sentence #
     this.services = "none";
-    this._window = null;
-    this._document = null;
   }
 
   async api_addNote(params: { nindex: any; dindex: any; context: any }) {
@@ -42,12 +40,13 @@ export class Translation {
     notedef.definition =
       this.notes[nindex].css + this.notes[nindex].definitions[dindex];
     notedef.definitions =
-      this.notes[nindex].css + this.notes[nindex].definitions.join("<hr>");
+      this.notes[nindex].css + this.notes[nindex].definitions.join("<hr/>");
     notedef.sentence = context;
     notedef.url = window.location.href;
     const response = await addNote(notedef);
 
-    api_setActionState({ response, params });
+    if (this._document == null) return;
+    api_setActionState(this._document, { response, params });
   }
 
   buildNote(_window: Window, result: ConcatArray<never>) {
@@ -95,7 +94,7 @@ export class Translation {
     if (services != "none") {
       image = services == "ankiconnect" ? "plus.png" : "cloud.png";
       imageclass = (await isConnected())
-        ? 'class="odh-addnote"'
+        ? 'class="odh-addnote odh-addnote-plus"'
         : 'class="odh-addnote-disabled"';
     }
 

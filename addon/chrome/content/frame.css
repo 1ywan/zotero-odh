@@ -73,10 +73,32 @@
   cursor: pointer;
   position: relative;
   float: right;
-  background: url("chrome://zodh/content/fg/img/plus.png") no-repeat !important;
   width: 16px;
   height: 16px;
-  border: none;
+}
+
+/* .odh-addnote {
+  background: url("chrome://zodh/content/fg/img/plus.png") no-repeat;
+}  */
+
+.odh-addnote-plus {
+  background: url("chrome://zodh/content/fg/img/plus.png") no-repeat;
+} 
+
+.odh-addnote-cloud {
+  background: url("chrome://zodh/content/fg/img/cloud.png") no-repeat;
+} 
+
+.odh-addnote-load {
+  background: url("chrome://zodh/content/fg/img/load.gif") no-repeat;
+} 
+
+.odh-addnote-good {
+  background: url("chrome://zodh/content/fg/img/good.png") no-repeat;
+}
+
+.odh-addnote-fail {
+  background: url("chrome://zodh/content/fg/img/fail.png") no-repeat;
 }
 
 .odh-addnote-disabled{
