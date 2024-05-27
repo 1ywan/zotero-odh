@@ -327,13 +327,13 @@ export class Addon {
     load.src = "chrome://zodh/content/fg/img/load.gif";
 
     const good = document.createElement("img");
-    load.src = "chrome://zodh/content/fg/img/good.png";
+    good.src = "chrome://zodh/content/fg/img/good.png";
 
     const fail = document.createElement("img");
-    load.src = "chrome://zodh/content/fg/img/fail.png";
+    fail.src = "chrome://zodh/content/fg/img/fail.png";
 
     const play = document.createElement("img");
-    load.src = "chrome://zodh/content/fg/img/play.png";
+    play.src = "chrome://zodh/content/fg/img/play.png";
   }
 }
 
