@@ -1,20 +1,14 @@
 import { spell } from "./spell";
 
-function getImageSource(doc: Document, id: string) {
-  return (doc.querySelector(`#${id}`) as HTMLImageElement)!.src;
-}
-
 function registerAddNoteLinks(doc: Document) {
   for (const link of doc.getElementsByClassName("odh-addnote")) {
     link.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
       const ds = (e.currentTarget as HTMLImageElement).dataset;
-      (e.currentTarget as HTMLImageElement)!.src = getImageSource(doc, "load");
+      // (e.currentTarget as HTMLImageElement)!.src = getImageSource(doc, "load");
 
-      const fg = addon.data.fg;
-
-      fg?.api_addNote({
+      addon.data.fg?.api_addNote({
         nindex: ds.nindex,
         dindex: ds.dindex,
         // context: doc.querySelector(".spell-content")?.innerHTML,
@@ -106,19 +100,28 @@ export function onDomContentLoaded(doc: Document) {
   initSpellnTranslation(doc);
 }
 
-export function api_setActionState(result) {
+export function api_setActionState(
+  doc: Document,
+  result: { response: any; params: any },
+) {
   const { response, params } = result;
   const { nindex, dindex } = params;
 
-  const match = document.querySelector(
+  const match = doc.querySelector(
     `.odh-addnote[data-nindex="${nindex}"].odh-addnote[data-dindex="${dindex}"]`,
   );
-  if (response) match.src = getImageSource("good");
-  else match.src = getImageSource("fail");
-
-  setTimeout(() => {
-    match.src = getImageSource("plus");
-  }, 1000);
+  if (match == null) return;
+  if (response) {
+    match.classList.replace("odh-addnote-plus", "odh-addnote-good");
+    setTimeout(() => {
+      match.classList.replace("odh-addnote-good", "odh-addnote-plus");
+    }, 1000);
+  } else {
+    match.classList.replace("odh-addnote-plus", "odh-addnote-fail");
+    setTimeout(() => {
+      match.classList.replace("odh-addnote-fail", "odh-addnote-plus");
+    }, 1000);
+  }
 }
 
 function onMouseWheel(e) {
