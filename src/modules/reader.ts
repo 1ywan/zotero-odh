@@ -19,27 +19,15 @@ export function registerReaderInitializer() {
       // popup.append("Loading…");
       append(popup);
 
-      const lastView = reader._internalReader._lastViewPrimary
-        ? reader._internalReader._primaryView
-        : reader._internalReader._secondaryView;
-      const lastContainer = reader._internalReader._lastViewPrimary
-        ? reader._internalReader._primaryViewContainer
-        : reader._internalReader._secondaryViewContainer;
-      const contextDoc = (lastContainer.childNodes[0] as HTMLIFrameElement)
-        .contentDocument;
-
       addon
         .api_getTranslation(params.annotation.text.trim())
         .then((result: any) => {
           const translation = new Translation();
-          translation._document = contextDoc;
-          translation._window = contextDoc?.defaultView as Window;
+          translation._document = reader._iframeWindow?.document;
+          translation._window = reader._iframeWindow;
           addon.data.fg = translation;
           addon.data.fg.notes = result;
-          const notes = addon.data.fg.buildNote(
-            contextDoc!.defaultView,
-            result,
-          );
+          const notes = addon.data.fg.buildNote(reader._iframeWindow!, result);
           return addon.data.fg.renderPopup(notes);
         })
         .then((content: any) => {
