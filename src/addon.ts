@@ -39,6 +39,8 @@ export class Addon {
   public deinflector: Deinflector | null;
   public builtin: Builtin | null;
 
+  private addedElements: [{ [key: string]: string }?] = [];
+
   static registerPrefs() {
     const prefOptions = {
       pluginID: config.addonID,
@@ -334,6 +336,18 @@ export class Addon {
 
     const play = document.createElement("img");
     play.src = "chrome://zodh/content/fg/img/play.png";
+  }
+
+  storeAddedElementIDs(tabID: string, id: string) {
+    this.addedElements.push({ tabID: tabID, elementID: id });
+  }
+
+  removeFromWindow(window: Window) {
+    for (const element of this.addedElements) {
+      const reader = Zotero.Reader.getByTabID(element!.tabID);
+      if (reader == null) continue;
+      reader._iframeWindow?.document.getElementById(element!.id)?.remove();
+    }
   }
 }
 
