@@ -52,6 +52,7 @@ export async function onReaderOpened(reader: _ZoteroTypes.ReaderInstance) {
     return;
   }
   head.append(clientStyle);
+  addon.storeAddedElementIDs(reader.tabID, "client-style");
 
   //   Zotero.log("frame-style write in");
   const frameStyle = doc.createElement("style");
@@ -63,6 +64,7 @@ export async function onReaderOpened(reader: _ZoteroTypes.ReaderInstance) {
     frameStyle.innerHTML = content;
   }
   head.appendChild(frameStyle);
+  addon.storeAddedElementIDs(reader.tabID, "frame-style");
 
   //   Zotero.log("spell-style write in");
   const spellStyle = doc.createElement("style");
@@ -73,6 +75,7 @@ export async function onReaderOpened(reader: _ZoteroTypes.ReaderInstance) {
     spellStyle.innerHTML = content;
   }
   head.appendChild(spellStyle);
+  addon.storeAddedElementIDs(reader.tabID, "spell-style");
 
   //   link = doc.createElement("link");
   //   link.rel = "stylesheet";
