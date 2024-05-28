@@ -95,7 +95,7 @@ export class Translation {
       image = services == "ankiconnect" ? "plus.png" : "cloud.png";
       imageclass = (await isConnected())
         ? 'class="odh-addnote odh-addnote-plus"'
-        : 'class="odh-addnote-disabled"';
+        : 'class="odh-addnote-disabled odh-addnote-plus"';
     }
 
     for (const [nindex, note] of notes.entries()) {
