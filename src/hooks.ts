@@ -37,7 +37,7 @@ async function onMainWindowLoad(win: Window): Promise<void> {
     resolve(void 0);
   });
 
-  injectStyle(win);
+  // injectStyle(win);
   const callback = {
     notify: async (
       event: string,
@@ -62,6 +62,7 @@ async function onMainWindowLoad(win: Window): Promise<void> {
 
 async function onMainWindowUnload(win: Window): Promise<void> {
   ztoolkit.unregisterAll();
+  addon.removeFromWindow(win);
 }
 
 function onShutdown(): void {
