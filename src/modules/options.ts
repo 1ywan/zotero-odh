@@ -59,7 +59,7 @@ async function populateAnkiFields(doc: Document) {
     names.forEach((name: string) => {
       const opt1 = doc.createXULElement("menuitem");
       opt1.label = name;
-      opt1.text = name;
+      opt1.value = name;
       select?.append(opt1);
     });
     select!.value = Zotero.Prefs.get(`zodh.${field}`) as string;
@@ -110,7 +110,7 @@ function populateDictionary(
   dict?.replaceChildren();
   if (dicts == undefined) return;
   dicts.forEach((item) => {
-    const ele = document.createXULElement("menuitem");
+    const ele = doc.createXULElement("menuitem");
     ele.value = item.objectname;
     ele.label = item.displayname;
     dict!.append(ele);
@@ -272,10 +272,9 @@ async function onSaveClicked(e: any, doc: Document) {
     (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
   }, 1000);
 
-  populateDictionary(doc, Zotero.Prefs.get("zodh.dictNamelist") as any);
-  (doc.querySelector("#dict") as HTMLSelectElement)!.value = Zotero.Prefs.get(
-    "zodh.dictSelected",
-  ) as string;
+  populateDictionary(doc, addon.data.dictNamelist as any);
+  (doc.querySelector("#dict") as HTMLSelectElement)!.value = addon.data
+    .dictSelected as string;
 }
 
 export async function onReady(doc: Document) {
@@ -289,11 +288,9 @@ export async function onReady(doc: Document) {
     "zodh.hotkey",
   ) as string;
 
-  populateDictionary(doc, Zotero.Prefs.get("zodh.dictNameList") as any);
-  (doc.querySelector("#dict") as HTMLSelectElement).value = Zotero.Prefs.get(
-    "zodh.dictSelected",
-  ) as string;
-
+  populateDictionary(doc, addon.data.dictNamelist);
+  (doc.querySelector("#dict") as HTMLSelectElement).value =
+    addon.data.dictSelected;
   (doc.querySelector("#monolingual") as HTMLSelectElement).value =
     Zotero.Prefs.get("zodh.monolingual") as string;
   (doc.querySelector("#anki-preferred-audio") as HTMLSelectElement).value =
