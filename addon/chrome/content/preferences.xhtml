@@ -94,8 +94,12 @@
       <label for="dict" data-l10n-id="lblCurrentDict" class="label"
         >Dictionary</label
       >
-      <menulist native="true" class="select col-3x">
-        <menupopup id="dict" preference="__prefsPrefix__.dictSelected">
+      <menulist
+        native="true"
+        class="select col-3x"
+        preference="__prefsPrefix__.dictSelected"
+      >
+        <menupopup id="dict">
           <menuitem label="encn-Default" value="encn-Default" />
         </menupopup>
       </menulist>
@@ -109,11 +113,12 @@
           <label data-l10n-id="lblLingualType" class="label"
             >Mono/Bilingual Dict.</label
           >
-          <menulist native="true" class="select">
-            <menupopup
-              id="monolingual"
-              preference="__prefsPrefix__.monolingual"
-            >
+          <menulist
+            native="true"
+            class="select"
+            preference="__prefsPrefix__.monolingual"
+          >
+            <menupopup id="monolingual">
               <menuitem label="Bilingual" />
               <menuitem label="Monolingual" />
             </menupopup>
@@ -121,11 +126,12 @@
         </hbox>
         <hbox>
           <label data-l10n-id="lblAudioPref" class="label">Pref. Audio</label>
-          <menulist native="true" class="select">
-            <menupopup
-              id="anki-preferred-audio"
-              preference="__prefsPrefix__.preferredaudio"
-            >
+          <menulist
+            native="true"
+            class="select"
+            preference="__prefsPrefix__.preferredaudio"
+          >
+            <menupopup id="anki-preferred-audio">
               <menuitem label="#0" value="0" />
               <menuitem label="#1" value="1" />
             </menupopup>
