@@ -22,7 +22,6 @@ export class Addon {
     };
 
     dicts: { [key: string]: any };
-    current: string | null;
     dictSelected: any;
     dictNamelist: any;
     audios: { [key: string]: any };
@@ -58,7 +57,6 @@ export class Addon {
       env: __env__,
       ztoolkit: createZToolkit(),
       dicts: {},
-      current: null,
       dictSelected: null,
       dictNamelist: [],
       audios: [],
@@ -161,12 +159,6 @@ export class Addon {
     for (const dictionary of Object.values(this.data.dicts)) {
       if (typeof dictionary.setOptions === "function")
         dictionary.setOptions(options);
-    }
-
-    const selected = this.data.dictSelected;
-    if (this.data.dicts[selected]) {
-      this.data.current = selected;
-      return;
     }
   }
 
@@ -309,12 +301,12 @@ export class Addon {
   }
 
   async findTerm(expression: string): Promise<string | null> {
+    const dictSelected = Zotero.Prefs.get("zodh.dictSelected") as string;
     if (
-      this.data.dicts[this.data.current!] &&
-      typeof this.data.dicts[this.data.current!].findTerm === "function"
+      this.data.dicts[dictSelected] &&
+      typeof this.data.dicts[dictSelected].findTerm === "function"
     ) {
-      const notes =
-        await this.data.dicts[this.data.current!].findTerm(expression);
+      const notes = await this.data.dicts[dictSelected].findTerm(expression);
       return notes;
     } else {
       return null;
