@@ -63,8 +63,8 @@
           </div>
         </hbox>
       </vbox>
-      <vbox>
-        <hbox class="rightpanel">
+      <vbox class="rightpanel">
+        <hbox>
           <label data-l10n-id="lblHotkey" class="label">AuoSel. HotKey</label>
 
           <menulist
@@ -81,6 +81,7 @@
           </menulist>
         </hbox>
       </vbox>
+      <vbox class="clearfix"></vbox>
     </hbox>
   </groupbox>
 
@@ -90,7 +91,7 @@
         <span data-l10n-id="grpDictionary">Dictionary Options</span>
       </html:h2>
     </label>
-    <hbox>
+    <hbox class="crosspanel">
       <label for="dict" data-l10n-id="lblCurrentDict" class="label"
         >Dictionary</label
       >
@@ -172,6 +173,8 @@
           </menulist>
         </hbox>
       </vbox>
+
+      <vbox class="clearfix"></vbox>
     </hbox>
   </groupbox>
 
@@ -187,7 +190,7 @@
       </html:h2>
     </label>
 
-    <hbox>
+    <hbox class="crosspanel">
       <label data-l10n-id="lblServices" class="label">Services</label>
       <menulist
         native="true"
@@ -202,7 +205,7 @@
       </menulist>
       <label id="services-status" class="label">Anki Status</label>
     </hbox>
-    <div id="user-options" class="hidden">
+    <vbox id="user-options" class="hidden">
       <vbox>
         <label data-l10n-id="lblUsername" class="label">ID</label>
         <html:input
@@ -230,9 +233,9 @@
         />
         <label class="button" id="login" data-l10n-id="lblSignin">Signin</label>
       </vbox>
-    </div>
+    </vbox>
     <vbox id="anki-options">
-      <hbox>
+      <hbox class="crosspanel">
         <label data-l10n-id="lblDeckname" class="label">Deck Name</label>
         <menulist
           native="true"
@@ -242,7 +245,7 @@
           <menupopup id="deckname"> </menupopup>
         </menulist>
       </hbox>
-      <hbox>
+      <hbox class="crosspanel">
         <label data-l10n-id="lblTypename" class="label">Type Name</label>
         <menulist
           native="true"
@@ -253,7 +256,7 @@
         </menulist>
       </hbox>
       <hbox>
-        <vbox>
+        <vbox class="leftpanel">
           <hbox>
             <label for="expression" data-l10n-id="lblExpression" class="label"
               >Expression</label
@@ -303,7 +306,7 @@
             </menulist>
           </hbox>
         </vbox>
-        <vbox>
+        <vbox class="rightpanel">
           <hbox>
             <label for="sentence" data-l10n-id="lblSentence" class="label"
               >Sentence</label
@@ -353,8 +356,9 @@
             </menulist>
           </hbox>
         </vbox>
+        <vbox class="clearfix"> </vbox>
       </hbox>
-      <hbox>
+      <hbox class="crosspanel">
         <label data-l10n-id="lblTags" class="label">Tags Name</label>
         <html:input
           type="text"
@@ -365,28 +369,26 @@
         />
       </hbox>
     </vbox>
-    <vbox id="duplicate-option">
-      <hbox>
-        <label data-l10n-id="lblAllowDuplicate" class="label"
-          >Allow Duplicate</label
-        >
-        <menulist
-          id="duplicate"
-          native="true"
-          class="select col-3x"
-          preference="__prefsPrefix__.duplicate"
-        >
-          <menupopup>
-            <menuitem label="Not Allowed" value="0" data-l10n-id="selNotAllowed"
-              >Not Allowed</menuitem
-            >
-            <menuitem label="Allowed" value="1" data-l10n-id="selAllowed"
-              >Allowed</menuitem
-            >
-          </menupopup>
-        </menulist>
-      </hbox>
-    </vbox>
+    <hbox class="crosspanel" id="duplicate-option">
+      <label data-l10n-id="lblAllowDuplicate" class="label"
+        >Allow Duplicate</label
+      >
+      <menulist
+        id="duplicate"
+        native="true"
+        class="select col-3x"
+        preference="__prefsPrefix__.duplicate"
+      >
+        <menupopup>
+          <menuitem label="Not Allowed" value="0" data-l10n-id="selNotAllowed"
+            >Not Allowed</menuitem
+          >
+          <menuitem label="Allowed" value="1" data-l10n-id="selAllowed"
+            >Allowed</menuitem
+          >
+        </menupopup>
+      </menulist>
+    </hbox>
   </groupbox>
   <groupbox>
     <label>

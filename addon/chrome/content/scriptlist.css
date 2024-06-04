@@ -6,6 +6,7 @@
 
 .sl-body {
     height: 220px;
+    width: 100%;
     overflow: auto;
 }
 
