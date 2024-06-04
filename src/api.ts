@@ -5,7 +5,9 @@ async function deinflect(word: string) {
 }
 
 async function fetch(url: string) {
-  // return await this.postMessage("Fetch", { url });
+  const response = await window.fetch(url);
+  const context = await response.text();
+  return context;
 }
 
 async function getBuiltin(dict: string, word: string) {
