@@ -228,8 +228,9 @@ function onScriptListChange(doc: Document) {
           : (row.querySelector(".sl-col-name") as HTMLElement).innerHTML,
       );
   });
-  (doc.querySelector("#sysscripts") as HTMLSelectElement).value =
-    dictLibrary.join();
+  // (doc.querySelector("#sysscripts") as HTMLSelectElement).value =
+  //   dictLibrary.join();
+  Zotero.Prefs.set("zodh.sysscripts", dictLibrary.join());
 }
 
 function onHiddenClicked(doc: Document) {
