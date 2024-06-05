@@ -224,8 +224,8 @@ function onScriptListChange(doc: Document) {
       dictLibrary.push(
         (row.querySelector(".sl-col-cloud") as HTMLInputElement)!.checked
           ? "lib://" +
-              (row.querySelector(".sl-col-name") as HTMLElement).innerText
-          : (row.querySelector(".sl-col-name") as HTMLElement).innerText,
+              (row.querySelector(".sl-col-name") as HTMLElement).innerHTML
+          : (row.querySelector(".sl-col-name") as HTMLElement).innerHTML,
       );
   });
   (doc.querySelector("#sysscripts") as HTMLSelectElement).value =
@@ -346,9 +346,12 @@ export async function onReady(doc: Document) {
     ?.addEventListener("click", (e) => onSaveClicked(e, doc));
   (doc.querySelector(".gif") as HTMLSpanElement)!.style.display = "none";
 
-  doc
-    .querySelector(".sl-col-onoff, .sl-col-cloud")
-    ?.addEventListener("click", () => onScriptListChange(doc));
+  doc.querySelectorAll(".sl-col-onoff").forEach((ele) => {
+    ele.addEventListener("click", () => onScriptListChange(doc));
+  });
+  doc.querySelectorAll(".sl-col-cloud").forEach((ele) => {
+    ele.addEventListener("click", () => onScriptListChange(doc));
+  });
   doc
     .querySelector("#hidden")
     ?.addEventListener("click", () => onHiddenClicked(doc));
