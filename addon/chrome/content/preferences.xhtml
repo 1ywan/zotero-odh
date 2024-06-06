@@ -120,8 +120,8 @@
             preference="__prefsPrefix__.monolingual"
           >
             <menupopup id="monolingual">
-              <menuitem label="Bilingual" />
-              <menuitem label="Monolingual" />
+              <menuitem label="Bilingual" value="1" />
+              <menuitem label="Monolingual" value="0" />
             </menupopup>
           </menulist>
         </hbox>
@@ -370,22 +370,15 @@
       </hbox>
     </vbox>
     <hbox class="crosspanel" id="duplicate-option">
-      <label data-l10n-id="lblAllowDuplicate" class="label"
-        >Allow Duplicate</label
-      >
+      <label data-l10n-id="lblAllowDuplicate" class="label">X</label>
       <menulist
-        id="duplicate"
         native="true"
         class="select col-3x"
         preference="__prefsPrefix__.duplicate"
       >
-        <menupopup>
-          <menuitem label="Not Allowed" value="0" data-l10n-id="selNotAllowed"
-            >Not Allowed</menuitem
-          >
-          <menuitem label="Allowed" value="1" data-l10n-id="selAllowed"
-            >Allowed</menuitem
-          >
+        <menupopup id="duplicate">
+          <menuitem label="Not Allowed" value="0" />
+          <menuitem label="Allowed" value="1" />
         </menupopup>
       </menulist>
     </hbox>
