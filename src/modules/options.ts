@@ -240,38 +240,30 @@ function onHiddenClicked(doc: Document) {
 }
 
 async function onAnkiTypeChanged(e: any, doc: Document) {
-  if (e.originalEvent) {
-    populateAnkiFields(doc);
-  }
+  populateAnkiFields(doc);
 }
 
 async function onLoginClicked(e: any, doc: Document) {
-  if (e.originalEvent) {
-    (doc.querySelector("#services-status") as HTMLElement)!.innerText =
-      "msgConnecting";
-    await addon.ankiweb?.initConnection({}, true); // set param forceLogout = true
+  (doc.querySelector("#services-status") as HTMLElement)!.innerText =
+    "msgConnecting";
+  await addon.ankiweb?.initConnection({}, true); // set param forceLogout = true
 
-    // const newOptions = await odhback().opt_optionsChanged(options);
-    updateAnkiStatus(doc);
-  }
+  // const newOptions = await odhback().opt_optionsChanged(options);
+  updateAnkiStatus(doc);
 }
 
 async function onServicesChanged(e: any, doc: Document) {
-  if (e.originalEvent) {
-    updateAnkiStatus(doc);
-  }
+  updateAnkiStatus(doc);
 }
 
 async function onSaveClicked(e: any, doc: Document) {
-  if (!e.originalEvent) return;
+  // (doc.querySelector("#gif-load") as HTMLElement).style.display = "";
+  // (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
 
-  (doc.querySelector("#gif-load") as HTMLElement).style.display = "";
-  (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
-
-  (doc.querySelector("#gif-good") as HTMLImageElement).style.display = "";
-  setTimeout(() => {
-    (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
-  }, 1000);
+  // (doc.querySelector("#gif-good") as HTMLImageElement).style.display = "";
+  // setTimeout(() => {
+  //   (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
+  // }, 1000);
 
   populateDictionary(doc, addon.data.dictNamelist as any);
   (doc.querySelector("#dict") as HTMLSelectElement)!.value = addon.data
@@ -345,7 +337,7 @@ export async function onReady(doc: Document) {
   doc
     .querySelector("#saveload")
     ?.addEventListener("click", (e) => onSaveClicked(e, doc));
-  (doc.querySelector(".gif") as HTMLSpanElement)!.style.display = "none";
+  // (doc.querySelector(".gif") as HTMLSpanElement)!.style.display = "none";
 
   doc.querySelectorAll(".sl-col-onoff").forEach((ele) => {
     ele.addEventListener("click", () => onScriptListChange(doc));
