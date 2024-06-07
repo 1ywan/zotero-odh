@@ -1,3 +1,5 @@
+import { optionsLoad } from "../utils/prefs";
+
 /* global odhback, localizeHtmlPage, utilAsync, optionsLoad, optionsSave */
 async function populateAnkiDeckAndModel(doc: Document) {
   let names = [];
@@ -264,6 +266,8 @@ async function onSaveClicked(e: any, doc: Document) {
   // setTimeout(() => {
   //   (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
   // }, 1000);
+  const options = optionsLoad();
+  await addon.opt_optionsChanged(options);
 
   populateDictionary(doc, addon.data.dictNamelist as any);
   (doc.querySelector("#dict") as HTMLSelectElement)!.value = addon.data
