@@ -19,6 +19,9 @@ export function registerReaderInitializer() {
       // popup.append("Loading…");
       append(popup);
 
+      const ele = doc.querySelector(".selection-popup") as HTMLDivElement;
+      ele.style.maxWidth = "none";
+
       addon
         .api_getTranslation(params.annotation.text.trim())
         .then((result: any) => {
