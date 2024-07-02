@@ -26,11 +26,14 @@ export function registerReaderInitializer() {
         .api_getTranslation(params.annotation.text.trim())
         .then((result: any) => {
           const translation = new Translation();
-          translation._document = reader._iframeWindow?.document;
-          translation._window = reader._iframeWindow;
+          translation._document = reader._iframeWindow[0]?.document;
+          translation._window = reader._iframeWindow[0];
           addon.data.fg = translation;
           addon.data.fg.notes = result;
-          const notes = addon.data.fg.buildNote(reader._iframeWindow!, result);
+          const notes = addon.data.fg.buildNote(
+            reader._iframeWindow![0],
+            result,
+          );
           return addon.data.fg.renderPopup(notes);
         })
         .then((content: any) => {
