@@ -36,7 +36,7 @@
     "@types/react-dom": "^18.2.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "zotero-plugin-toolkit": "^2.3.11"
+    "zotero-plugin-toolkit": "^3.0.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.21",
