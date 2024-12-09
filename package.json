@@ -29,7 +29,7 @@
   "homepage": "https://github.com/1ywan/zotero-odh#readme",
   "dependencies": {
     "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
+    "@types/react-dom": "^19.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zotero-plugin-toolkit": "^4.0.7"
