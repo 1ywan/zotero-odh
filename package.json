@@ -32,7 +32,7 @@
     "@types/react-dom": "^19.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "zotero-plugin-toolkit": "^4.0.7"
+    "zotero-plugin-toolkit": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.8.1",
