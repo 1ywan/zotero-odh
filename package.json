@@ -35,7 +35,7 @@
     "zotero-plugin-toolkit": "^4.0.7"
   },
   "devDependencies": {
-    "@types/node": "^22.8.1",
+    "@types/node": "^24.0.3",
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.5.0",
     "chokidar": "^4.0.1",
