@@ -39,7 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.5.0",
     "chokidar": "^4.0.1",
-    "compressing": "^1.10.0",
+    "compressing": "^2.0.0",
     "esbuild": "^0.25.0",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^10.0.1",
