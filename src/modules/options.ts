@@ -32,41 +32,10 @@ async function populateAnkiDeckAndModel(doc: Document) {
     Zotero.Prefs.get("zodh.typename") as string;
 }
 
+// 不再需要 populateAnkiFields，因为使用模板系统
+// 保留函数以避免其他地方调用时报错
 async function populateAnkiFields(doc: Document, modelName: string | null) {
-  if (modelName === null) {
-    modelName =
-      (doc.querySelector("#typename") as HTMLSelectElement)!.value ||
-      (Zotero.Prefs.get("zodh.typename") as string);
-  }
-
-  const names = await addon.opt_getModelFieldNames(modelName);
-  if (names == null) return;
-
-  const fields = [
-    "expression",
-    "reading",
-    "extrainfo",
-    "definition",
-    "definitions",
-    "sentence",
-    "url",
-    "audio",
-  ];
-  fields.forEach((field) => {
-    const select = doc.querySelector(`#${field}`) as HTMLSelectElement;
-    select?.replaceChildren();
-    const opt = doc.createXULElement("menuitem") as XUL.MenuItem;
-    opt.label = "";
-    opt.value = "";
-    select?.append(opt);
-    names.forEach((name: string) => {
-      const opt1 = doc.createXULElement("menuitem") as XUL.MenuItem;
-      opt1.label = name;
-      opt1.value = name;
-      select?.append(opt1);
-    });
-    select!.value = Zotero.Prefs.get(`zodh.${field}`) as string;
-  });
+  // 模板系统不需要字段映射，此函数保留为空以避免兼容性问题
 }
 
 async function updateAnkiStatus(doc: Document, options?: Option) {
@@ -88,7 +57,7 @@ async function updateAnkiStatus(doc: Document, options?: Option) {
     doc.l10n?.setAttributes(element, "zodh-msgFailed");
   } else {
     populateAnkiDeckAndModel(doc);
-    populateAnkiFields(doc, null);
+    // 不再需要 populateAnkiFields，因为使用模板系统
     doc.l10n?.setAttributes(element, "zodh-msgSuccess", { Version: version });
     (doc.querySelector("#anki-options") as HTMLElement)!.style.visibility =
       "visible";
@@ -166,7 +135,7 @@ function populateSysScriptsList(doc: Document, dictLibrary: string) {
     col_onoff.type = "checkbox";
     col_onoff.checked =
       optionscripts.includes(script) ||
-      optionscripts.includes("lib://" + script)
+        optionscripts.includes("lib://" + script)
         ? true
         : false;
 
@@ -226,7 +195,7 @@ function onScriptListChange(doc: Document) {
       dictLibrary.push(
         (row.querySelector(".sl-col-cloud") as HTMLInputElement)!.checked
           ? "lib://" +
-              (row.querySelector(".sl-col-name") as HTMLElement).innerHTML
+          (row.querySelector(".sl-col-name") as HTMLElement).innerHTML
           : (row.querySelector(".sl-col-name") as HTMLElement).innerHTML,
       );
   });
@@ -242,8 +211,8 @@ function onHiddenClicked(doc: Document) {
 }
 
 async function onAnkiTypeChanged(e: any, doc: Document) {
-  const modelName = e.target.value;
-  populateAnkiFields(doc, modelName);
+  // 模板系统不需要根据类型变化更新字段映射
+  // 保留函数以避免事件监听器报错
 }
 
 async function onLoginClicked(e: any, doc: Document) {
@@ -273,6 +242,17 @@ async function onSaveClicked(e: any, doc: Document) {
   // setTimeout(() => {
   //   (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
   // }, 1000);
+
+  // 手动保存模板字段（因为 preference 绑定可能不会立即生效）
+  const frontTemplateEl = doc.querySelector("#frontTemplate") as HTMLTextAreaElement;
+  const backTemplateEl = doc.querySelector("#backTemplate") as HTMLTextAreaElement;
+  if (frontTemplateEl) {
+    Zotero.Prefs.set("zodh.frontTemplate", frontTemplateEl.value, true);
+  }
+  if (backTemplateEl) {
+    Zotero.Prefs.set("zodh.backTemplate", backTemplateEl.value, true);
+  }
+
   const options = optionsLoad();
   await addon.opt_optionsChanged(options);
 
@@ -356,21 +336,29 @@ export async function onReady(doc: Document) {
   (doc.querySelector("#duplicate") as HTMLSelectElement).value =
     Zotero.Prefs.get("zodh.duplicate") as string;
 
+  // 加载模板字段
+  const frontTemplateEl = doc.querySelector("#frontTemplate") as HTMLTextAreaElement;
+  const backTemplateEl = doc.querySelector("#backTemplate") as HTMLTextAreaElement;
+  if (frontTemplateEl) {
+    const frontValue = (Zotero.Prefs.get("zodh.frontTemplate") as string) || "{{Expression}}";
+    frontTemplateEl.value = frontValue;
+  }
+  if (backTemplateEl) {
+    const backValue = (Zotero.Prefs.get("zodh.backTemplate") as string) || "{{Reading}}\n\n{{Definition}}";
+    backTemplateEl.value = backValue;
+  }
+
+  // 保留其他字段的加载（用于兼容性）
   const fields = [
     "deckname",
     "typename",
-    "expression",
-    "reading",
-    "extrainfo",
-    "definition",
-    "definitions",
-    "sentence",
-    "url",
-    "audio",
+    "tags",
   ];
   fields.forEach((field) => {
-    (doc.querySelector(`#${field}`) as HTMLSelectElement).value =
-      Zotero.Prefs.get(`zodh.${field}`) as string;
+    const element = doc.querySelector(`#${field}`) as HTMLInputElement | HTMLSelectElement;
+    if (element) {
+      element.value = Zotero.Prefs.get(`zodh.${field}`) as string;
+    }
   });
 
   (doc.querySelector("#sysscripts") as HTMLSelectElement).value =

@@ -27,6 +27,8 @@ export type Option = {
   sysscripts: string;
   udfscripts: string;
   dictSelected: string;
+  frontTemplate: string;
+  backTemplate: string;
 };
 
 /**
@@ -84,6 +86,8 @@ export function optionsLoad(): Option {
     sysscripts: getPref("sysscripts") as string,
     udfscripts: getPref("udfscripts") as string,
     dictSelected: getPref("dictSelected") as string,
+    frontTemplate: getPref("frontTemplate") as string,
+    backTemplate: getPref("backTemplate") as string,
     // dictNameList: getPref("dictNameList") as string[],
   };
 }
@@ -114,4 +118,6 @@ export function optionsSave(options: Option) {
   setPref("sysscripts", options.sysscripts);
   setPref("udfscripts", options.udfscripts);
   setPref("dictSelected", options.dictSelected);
+  setPref("frontTemplate", options.frontTemplate);
+  setPref("backTemplate", options.backTemplate);
 }

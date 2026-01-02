@@ -142,3 +142,41 @@ a.tabmenu {
 .hidden {
   display: none;
 }
+
+/* Template textbox styles */
+textbox[multiline="true"] {
+  width: 100% !important;
+  min-width: 300px;
+  border: 1px solid #d5d5d5 !important;
+  border-radius: 4px;
+  padding: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  background-color: white !important;
+  color: black !important;
+  -moz-appearance: textfield-multiline;
+  overflow: auto;
+  pointer-events: auto !important;
+  -moz-user-select: text !important;
+}
+
+textbox[multiline="true"]:focus {
+  border-color: #4caf50 !important;
+  outline: none;
+}
+
+textbox[multiline="true"][readonly="true"],
+textbox[multiline="true"][disabled="true"] {
+  background-color: #f5f5f5 !important;
+  pointer-events: none !important;
+}
+
+#frontTemplate,
+#backTemplate {
+  width: 100% !important;
+  flex: 1;
+  visibility: visible !important;
+  display: block !important;
+  pointer-events: auto !important;
+  -moz-user-select: text !important;
+}

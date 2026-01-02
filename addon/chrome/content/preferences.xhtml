@@ -259,109 +259,38 @@
           <menupopup id="typename"> </menupopup>
         </menulist>
       </hbox>
-      <hbox>
-        <vbox class="leftpanel">
-          <hbox>
-            <label for="expression" data-l10n-id="lblExpression" class="label"
-              >Expression</label
-            >
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.expression"
-            >
-              <menupopup id="expression"> </menupopup>
-            </menulist>
-          </hbox>
-          <hbox>
-            <label for="reading" data-l10n-id="lblReading" class="label"
-              >Reading</label
-            >
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.reading"
-            >
-              <menupopup id="reading"> </menupopup>
-            </menulist>
-          </hbox>
-          <hbox>
-            <label for="definition" data-l10n-id="lblDefinition" class="label"
-              >Definition</label
-            >
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.definition"
-            >
-              <menupopup id="definition"> </menupopup>
-            </menulist>
-          </hbox>
-          <hbox>
-            <label for="definitions" data-l10n-id="lblDefinitions" class="label"
-              >Definition</label
-            >
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.definitions"
-            >
-              <menupopup id="definitions"> </menupopup>
-            </menulist>
-          </hbox>
-        </vbox>
-        <vbox class="rightpanel">
-          <hbox>
-            <label for="sentence" data-l10n-id="lblSentence" class="label"
-              >Sentence</label
-            >
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.sentence"
-            >
-              <menupopup id="sentence"></menupopup>
-            </menulist>
-          </hbox>
-          <hbox>
-            <label for="extrainfo" data-l10n-id="lblExtrainfo" class="label"
-              >Extrainfo</label
-            >
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.extrainfo"
-            >
-              <menupopup id="extrainfo"></menupopup>
-            </menulist>
-          </hbox>
-
-          <hbox>
-            <label for="url" data-l10n-id="lblUrl" class="label">URL</label>
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.url"
-            >
-              <menupopup id="url"> </menupopup>
-            </menulist>
-          </hbox>
-
-          <hbox>
-            <label for="audio" data-l10n-id="lblAudio" class="label"
-              >Audio</label
-            >
-            <menulist
-              native="true"
-              class="select"
-              preference="__prefsPrefix__.audio"
-            >
-              <menupopup id="audio"> </menupopup>
-            </menulist>
-          </hbox>
-        </vbox>
-        <vbox class="clearfix"> </vbox>
-      </hbox>
+      <vbox class="crosspanel" style="margin: 10px 0;">
+        <label style="font-weight: bold; margin-bottom: 5px;">
+          Front Template (正面模板)
+        </label>
+        <html:textarea
+          id="frontTemplate"
+          rows="3"
+          placeholder="例如: {{Expression}}"
+          class="col-3x"
+          preference="__prefsPrefix__.frontTemplate"
+          style="width: 100%; font-family: monospace; min-height: 60px; margin: 5px 0; resize: vertical;"
+        />
+        <label style="font-size: 0.9em; color: #666; margin-top: 5px;">
+          可用占位符: {{Expression}}, {{Reading}}, {{Definition}}, {{Definitions}}, {{Sentence}}, {{ExtraInfo}}, {{URL}}
+        </label>
+      </vbox>
+      <vbox class="crosspanel" style="margin: 15px 0;">
+        <label style="font-weight: bold; margin-bottom: 5px;">
+          Back Template (背面模板)
+        </label>
+        <html:textarea
+          id="backTemplate"
+          rows="8"
+          placeholder="例如: {{Reading}}&#10;&#10;{{Definition}}&#10;&#10;{{Sentence}}"
+          class="col-3x"
+          preference="__prefsPrefix__.backTemplate"
+          style="width: 100%; font-family: monospace; min-height: 160px; margin: 5px 0; resize: vertical;"
+        />
+        <label style="font-size: 0.9em; color: #666; margin-top: 5px;">
+          可用占位符: {{Expression}}, {{Reading}}, {{Definition}}, {{Definitions}}, {{Sentence}}, {{ExtraInfo}}, {{URL}}
+        </label>
+      </vbox>
       <hbox class="crosspanel">
         <label data-l10n-id="lblTags" class="label">Tags Name</label>
         <html:input

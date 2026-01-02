@@ -201,8 +201,7 @@ export class Addon {
   formatNote(notedef: any) {
     const options = optionsLoad();
 
-    if (!options.deckname || !options.typename || !options.expression)
-      return null;
+    if (!options.deckname || !options.typename) return null;
 
     const note: { [key: string]: any } = {
       deckName: options.deckname,
@@ -212,23 +211,62 @@ export class Addon {
       tags: [],
     };
 
-    const fieldnames = [
-      "expression",
-      "reading",
-      "extrainfo",
-      "definition",
-      "definitions",
-      "sentence",
-      "url",
-    ];
-    for (const fieldname of fieldnames) {
-      if (!options[fieldname]) continue;
-      note.fields[options[fieldname] as string] = notedef[fieldname];
+    // 模板解析函数
+    const renderTemplate = (template: string): string => {
+      if (!template) return "";
+
+      let result = template;
+      const placeholders: { [key: string]: string } = {
+        "{{Expression}}": notedef.expression || "",
+        "{{Reading}}": notedef.reading || "",
+        "{{ExtraInfo}}": notedef.extrainfo || "",
+        "{{Definition}}": notedef.definition || "",
+        "{{Definitions}}": notedef.definitions || "",
+        "{{Sentence}}": notedef.sentence || "",
+        "{{URL}}": notedef.url || "",
+      };
+
+      // 替换所有占位符
+      for (const [placeholder, value] of Object.entries(placeholders)) {
+        result = result.replace(new RegExp(placeholder.replace(/[{}]/g, "\\$&"), "g"), value);
+      }
+
+      return result;
+    };
+
+    // 使用模板生成 Front 和 Back
+    const frontTemplate = options.frontTemplate || "{{Expression}}";
+    const backTemplate = options.backTemplate || "{{Definition}}";
+
+    // 检查是否使用了模板系统（如果 frontTemplate 或 backTemplate 包含占位符）
+    const hasTemplate = frontTemplate.includes("{{") || backTemplate.includes("{{");
+
+    if (hasTemplate) {
+      // 使用模板系统
+      note.fields["Front"] = renderTemplate(frontTemplate);
+      note.fields["Back"] = renderTemplate(backTemplate);
+    } else {
+      // 兼容旧版本：使用字段映射
+      const fieldnames = [
+        "expression",
+        "reading",
+        "extrainfo",
+        "definition",
+        "definitions",
+        "sentence",
+        "url",
+      ];
+      for (const fieldname of fieldnames) {
+        if (!options[fieldname]) continue;
+        note.fields[options[fieldname] as string] = notedef[fieldname] || "";
+      }
     }
 
     const tags = options.tags.trim();
     if (tags.length > 0) note.tags = tags.split(" ");
 
+    // 音频处理：如果模板中包含音频占位符，需要特殊处理
+    // 这里保持原有逻辑，音频字段单独处理
     if (options.audio && notedef.audios.length > 0) {
       note.fields[options.audio] = "";
       let audionumber = Number(options.preferredaudio);

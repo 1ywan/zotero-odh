@@ -30,3 +30,5 @@ pref(
 pref("__prefsPrefix__.udfscripts", "");
 pref("__prefsPrefix__.dictSelected", "");
 pref("__prefsPrefix__.dictNameList", "");
+pref("__prefsPrefix__.frontTemplate", "{{Expression}}");
+pref("__prefsPrefix__.backTemplate", "{{Reading}}\n\n{{Definition}}");
