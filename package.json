@@ -41,7 +41,7 @@
     "chokidar": "^5.0.0",
     "compressing": "^2.0.0",
     "esbuild": "^0.28.0",
-    "eslint": "^9.10.0",
+    "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.0.1",
     "prettier": "^3.2.5",
     "replace-in-file": "^8.1.0",
