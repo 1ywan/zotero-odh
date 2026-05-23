@@ -23,9 +23,7 @@ function ensureReaderStylesheet(doc: Document) {
   style.textContent = `
     #odh-popup {
       all: initial;
-      background-color: #fff;
-      border: 1px solid #666;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      background-color: transparent;
       height: 300px;
       resize: both;
       width: 400px;
