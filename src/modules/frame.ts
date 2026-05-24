@@ -70,9 +70,11 @@ function initSpellnTranslation(doc: Document) {
   // Copy the captured sentence into the spell-content editor.
   // Append a <br> so the cursor has a stable block boundary at end-of-content;
   // otherwise trailing whitespace from PDF text causes Enter to collapse instead of newline.
+  // Replace \n with spaces so words that cross line boundaries in multiline
+  // captured text are properly separated instead of being joined without a space.
   const contextHTML = doc.querySelector("#context")!.innerHTML.trimEnd();
   doc.querySelector(".spell-content")!.innerHTML = contextHTML
-    ? contextHTML + "<br>"
+    ? contextHTML.replace(/\n/g, " ") + "<br>"
     : "<br>";
   if (
     (doc.querySelector("#monolingual") as HTMLSelectElement)!.innerText == "1"
