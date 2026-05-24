@@ -67,8 +67,13 @@ function registerAudioLinks(doc: Document) {
 
 function initSpellnTranslation(doc: Document) {
   doc.querySelector("#odh-container")?.appendChild(spell(doc));
-  doc.querySelector(".spell-content")!.innerHTML =
-    doc.querySelector("#context")!.innerHTML;
+  // Copy the captured sentence into the spell-content editor.
+  // Append a <br> so the cursor has a stable block boundary at end-of-content;
+  // otherwise trailing whitespace from PDF text causes Enter to collapse instead of newline.
+  const contextHTML = doc.querySelector("#context")!.innerHTML.trimEnd();
+  doc.querySelector(".spell-content")!.innerHTML = contextHTML
+    ? contextHTML + "<br>"
+    : "<br>";
   if (
     (doc.querySelector("#monolingual") as HTMLSelectElement)!.innerText == "1"
   )

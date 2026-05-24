@@ -84,10 +84,9 @@ export function spell(doc: Document) {
   const spellcontent = doc.createElement("div");
   spellcontent.className = "spell-content";
   spellcontent.contentEditable = "true";
-  // spellcontent.addEventListener("keydown", (event) => {
-  //   event.stopPropagation();
-  //   event.which != 9;
-  // });
+  spellcontent.addEventListener("keydown", (event) => {
+    event.stopPropagation();
+  });
   spellcontent.addEventListener("keyup", queryState);
   spellcontent.addEventListener("mouseup", queryState);
 

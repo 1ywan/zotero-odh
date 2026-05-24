@@ -366,9 +366,9 @@ export function registerReaderInitializer() {
       popup.className = "label-popup";
       popup.addEventListener("mousedown", (e: Event) => e.stopPropagation());
       popup.addEventListener("scroll", (e: Event) => e.stopPropagation());
-      // popup.addEventListener("keydown", (e: KeyboardEvent) => {
-      //   e.stopPropagation();
-      // });
+      popup.addEventListener("keydown", (e: KeyboardEvent) =>
+        e.stopPropagation(),
+      );
 
       // popup.append("Loading…");
       append(popup);
