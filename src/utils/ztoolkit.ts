@@ -28,19 +28,3 @@ function initZToolkit(_ztoolkit: ReturnType<typeof createZToolkit>) {
     `chrome://${config.addonRef}/content/icons/icon-32.png`,
   );
 }
-
-import { BasicTool, unregister } from "zotero-plugin-toolkit";
-import { UITool } from "zotero-plugin-toolkit";
-
-class MyToolkit extends BasicTool {
-  UI: UITool;
-
-  constructor() {
-    super();
-    this.UI = new UITool(this);
-  }
-
-  unregisterAll() {
-    unregister(this);
-  }
-}

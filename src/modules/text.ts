@@ -60,6 +60,27 @@ export function isChinese(word: string) {
 //   return (isChinese(word) && isEmpty(word)) || isShortandNum(word);
 // }
 
+/**
+ * Split text by words that start with a capital letter and only the first
+ * letter is capitalized (e.g. "Hello" but not "HTML" or "NASA").
+ * This helps detect sentence boundaries when punctuation is missing.
+ */
+function splitByCapitalizedWords(text: string): string[] {
+  // Match a word boundary followed by [A-Z][a-z] (capitalized, not all-caps)
+  // Split before each such word, but not at the very start of the text
+  const parts = text.split(/(?=\b[A-Z][a-z])/g);
+  // Re-join fragments that don't start with the pattern (e.g. leading spaces/punctuation)
+  const result: string[] = [];
+  for (const part of parts) {
+    if (result.length > 0 && !/^[A-Z][a-z]/.test(part)) {
+      result[result.length - 1] += part;
+    } else {
+      result.push(part);
+    }
+  }
+  return result.length > 1 ? result : [text];
+}
+
 function cutSentence(
   word: string,
   offset: number,
@@ -85,7 +106,8 @@ function cutSentence(
       );
       filtered = arr.filter((x) => x.length);
     } else {
-      filtered = [sentence];
+      // Fallback: try splitting by capitalized words when punctuation split fails
+      filtered = splitByCapitalizedWords(sentence);
     }
 
     if (filtered === null) return;
