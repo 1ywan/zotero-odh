@@ -328,7 +328,7 @@ export class Addon {
     for (const element of this.addedElements) {
       const reader = Zotero.Reader.getByTabID(element!.tabID);
       if (reader == null) continue;
-      reader._iframeWindow?.document.getElementById(element!.id)?.remove();
+      reader._iframeWindow?.document.getElementById(element!.elementID)?.remove();
     }
   }
 }

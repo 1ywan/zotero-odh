@@ -194,7 +194,7 @@ function getPDFNode(_window: Window, node: any) {
   let sentence = "";
   let offset = 0;
   sentenceNodes = sentenceNodes.filter(
-    (x) => x.textContent != "" || x.textContent != "-",
+    (x) => x.textContent != "" && x.textContent != "-",
   );
   for (const node of sentenceNodes) {
     const selection = _window.getSelection();
