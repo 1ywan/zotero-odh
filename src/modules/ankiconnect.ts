@@ -20,7 +20,6 @@ export class Ankiconnect {
         },
       );
       const response = raw_response.response;
-      // return response?.response;
       return new Promise((resolve, reject) => {
         try {
           if (Object.getOwnPropertyNames(response).length != 2) {

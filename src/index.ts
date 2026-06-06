@@ -11,9 +11,6 @@ if (!basicTool.getGlobal("Zotero")[config.addonInstance]) {
   defineGlobal("ZoteroPane");
   defineGlobal("Zotero_Tabs");
   _globalThis.addon = new Addon();
-  defineGlobal("ztoolkit", () => {
-    return _globalThis.addon.data.ztoolkit;
-  });
   Zotero[config.addonInstance] = addon;
   _globalThis.api = api;
 }

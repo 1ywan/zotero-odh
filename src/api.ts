@@ -16,14 +16,6 @@ async function getBuiltin(dict: string, word: string) {
   );
 }
 
-async function getCollins(word: string) {
-  // return await this.postMessage("getCollins", { word });
-}
-
-async function getOxford(word: string) {
-  // return await this.postMessage("getOxford", { word });
-}
-
 async function locale() {
   return Zotero.locale;
 }
@@ -32,7 +24,5 @@ export default {
   deinflect,
   fetch,
   getBuiltin,
-  getCollins,
-  getOxford,
   locale,
 };

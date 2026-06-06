@@ -195,8 +195,6 @@ function populateSysScriptsList(doc: Document, dictLibrary: string) {
     col_description.innerText = script;
     row.append(col_onoff, col_cloud, col_name, col_description);
 
-    // row += `<span class="sl-col sl-col-name">${script}</span>`;
-    // row.innerHTML = row;
     scriptslistbody!.append(row);
   });
 
@@ -230,8 +228,6 @@ function onScriptListChange(doc: Document) {
           : (row.querySelector(".sl-col-name") as HTMLElement).innerHTML,
       );
   });
-  // (doc.querySelector("#sysscripts") as HTMLSelectElement).value =
-  //   dictLibrary.join();
   Zotero.Prefs.set("zodh.sysscripts", dictLibrary.join());
 }
 
@@ -247,8 +243,6 @@ async function onAnkiTypeChanged(e: any, doc: Document) {
 }
 
 async function onLoginClicked(e: any, doc: Document) {
-  // (doc.querySelector("#services-status") as HTMLElement)!.innerHTML =
-  //   "msgConnecting";
   await addon.ankiweb?.initConnection({}, true); // set param forceLogout = true
 
   const options = optionsLoad();
@@ -266,13 +260,6 @@ async function onServicesChanged(e: any, doc: Document) {
 }
 
 async function onSaveClicked(e: any, doc: Document) {
-  // (doc.querySelector("#gif-load") as HTMLElement).style.display = "";
-  // (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
-
-  // (doc.querySelector("#gif-good") as HTMLImageElement).style.display = "";
-  // setTimeout(() => {
-  //   (doc.querySelector(".gif") as HTMLImageElement).style.display = "none";
-  // }, 1000);
   const options = optionsLoad();
   await addon.opt_optionsChanged(options);
 
@@ -288,8 +275,6 @@ async function onEnabledClicked(e: any, doc: Document) {
 }
 
 export async function onReady(doc: Document) {
-  // localizeHtmlPage();
-  // const options = await optionsLoad();
   (doc.querySelector("#enabled") as HTMLInputElement)!.checked =
     Zotero.Prefs.get("zodh.enabled") as boolean;
   (doc.querySelector("#mouseselection") as HTMLInputElement)!.checked =
@@ -390,7 +375,6 @@ export async function onReady(doc: Document) {
   doc
     .querySelector("#saveload")
     ?.addEventListener("click", (e) => onSaveClicked(e, doc));
-  // (doc.querySelector(".gif") as HTMLSpanElement)!.style.display = "none";
 
   doc.querySelectorAll(".sl-col-onoff").forEach((ele) => {
     ele.addEventListener("click", () => onScriptListChange(doc));
@@ -410,5 +394,3 @@ export async function onReady(doc: Document) {
 
   updateAnkiStatus(doc);
 }
-
-// $(document).ready(utilAsync(onReady));

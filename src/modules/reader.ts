@@ -340,9 +340,6 @@ function ensureReaderStylesheet(doc: Document) {
   (doc.head || doc.documentElement).appendChild(style);
 }
 
-// import { SVGIcon } from "../utils/config";
-// import { addTranslateAnnotationTask } from "../utils/task";
-
 export function registerReaderInitializer() {
   Zotero.Reader.registerEventListener(
     "renderTextSelectionPopup",
@@ -370,21 +367,15 @@ export function registerReaderInitializer() {
         e.stopPropagation(),
       );
 
-      // popup.append("Loading…");
       append(popup);
 
       const ele = doc.querySelector(".selection-popup") as HTMLDivElement;
       ele.style.maxWidth = "none";
 
-      addon
-        .api_getTranslation(expression)
-        .then((result: any) => {
           const translation = new Translation(optionsLoad());
           translation._document = reader._iframe!.contentDocument;
-          // translation._window = reader._iframe;
           addon.data.currentTranslation = translation;
           addon.data.currentTranslation.notes = result;
-          // const expression = params.annotation.text.trim();
           const notes = addon.data.currentTranslation.buildNote(
             reader._iframeWindow![0],
             expression,
@@ -409,7 +400,6 @@ export class Translation {
   sentence: null;
   maxContext: number;
   [key: string]: any;
-  // _window?: Window;
   _document?: Document;
 
   constructor(options: Option) {
@@ -443,7 +433,6 @@ export class Translation {
 
   buildNote(_window: Window, expression: string, result: ConcatArray<never>) {
     //get 1 sentence around the expression.
-    // const expression = selectedText(_window!);
     const sentence = getSentence(_window, expression, this.maxContext);
     this.sentence = sentence;
     const tmpl: { [key: string]: any } = {
@@ -479,7 +468,6 @@ export class Translation {
   async renderPopup(notes: any[]) {
     let content = "";
     const services = this.options ? this.options.services : "none";
-    // const services = "ankiconnect";
     let image = "";
     let imageclass = "";
     // TODO: make options sanity
@@ -496,9 +484,6 @@ export class Translation {
       if (note.audios) {
         for (const [dindex, audio] of note.audios.entries()) {
           if (audio)
-            // audiosegment += `<img class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}" src="${
-            //   rootURI + "fg/img/play.png"
-            // }"/>`;
             audiosegment += `<div class="odh-playaudio" data-nindex="${nindex}" data-dindex="${dindex}"></div>`;
         }
       }
@@ -518,18 +503,13 @@ export class Translation {
       }
       content += "</div>";
     }
-    // content += `<textarea id="odh-context" class="odh-sentence">${this.sentence}</textarea>`;
     content += `<div id="odh-container" class="odh-sentence"></div>`;
-    // content += `<div id="odh-container" class="odh-sentence">${this.sentence}</div>`;
-    // return this.popupHeader() + content + this.popupFooter();
     return `<div class="odh-notes">` + content + this.popupIcons();
-    // return `<div class="odh-notes">` + content;
   }
   popupIcons() {
     const root = rootURI;
     const services = this.options ? this.options.services : "";
     const image = services == "ankiconnect" ? "plus.png" : "cloud.png";
-    // const button = chrome.runtime.getURL("fg/img/" + image);
     const button = "chrome://zodh/content/fg/img/" + image;
     const monolingual = this.options
       ? this.options.monolingual == "1"
@@ -546,7 +526,6 @@ export class Translation {
   }
 
   popupHeader() {
-    // const root = chrome.runtime.getURL("/");
     const root = rootURI;
     return `
           <html lang="en">

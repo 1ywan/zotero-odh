@@ -5,7 +5,6 @@ const HtmlTagsToReplace = {
 };
 
 export function replaceHtmlTag(tag: string) {
-  //   return HtmlTagsToReplace[tag] || tag;
   return tag;
 }
 
@@ -18,19 +17,15 @@ function escapeRegExp(string: string) {
 }
 
 String.prototype.replaceAll = function (search, replacement) {
-  // const target = this;
   search = escapeRegExp(search);
-  // return target.replace(new RegExp(search, "g"), replacement);
   return this.replace(new RegExp(search, "g"), replacement);
 };
 
 String.prototype.searchAll = function (search: string) {
-  // const target = this;
   search = escapeRegExp(search);
   const regex = new RegExp(search, "gi");
   let result = null;
   const indices: number[] = [];
-  // while ((result = regex.exec(target)) && result != "") {
   while ((result = regex.exec(this.valueOf())) && result != null) {
     indices.push(result.index);
   }
@@ -55,10 +50,6 @@ export function isChinese(word: string) {
   return cnReg.test(word);
 }
 
-// function isInvalid(word) {
-//   if (isChinese(word)) return false;
-//   return (isChinese(word) && isEmpty(word)) || isShortandNum(word);
-// }
 
 /**
  * Split text by words that start with a capital letter and only the first
@@ -148,17 +139,6 @@ function cutSentence(
   }
 }
 
-// function getSelectionOffset(node) {
-//   const range = window.getSelection().getRangeAt(0);
-//   const clone = range.cloneRange();
-//   clone.selectNodeContents(node);
-//   clone.setEnd(range.startContainer, range.startOffset);
-//   const start = clone.toString().length;
-//   clone.setEnd(range.endContainer, range.endOffset);
-//   const end = clone.toString().length;
-//   return { start, end };
-// }
-
 function getPDFNode(_window: Window, node: any) {
   let backwardindex = 0;
   do {
@@ -219,7 +199,6 @@ export function getSentence(_window: Window, word: string, sentenceNum: any) {
   const upNum = 4;
 
   const selection = _window.getSelection();
-  // const word = (selection!.toString() || "").trim();
 
   if (selection!.rangeCount < 1) return;
 
@@ -236,25 +215,12 @@ export function getSentence(_window: Window, word: string, sentenceNum: any) {
   return cutSentence(word, offset, sentence, sentenceNum);
 }
 
-// function getWebNode(node, deep) {
-//   const blockTags = ["LI", "P", "DIV", "BODY"];
-//   const nodeName = node.nodeName.toUpperCase();
-//   if (blockTags.includes(nodeName) || deep === 0) {
-//     return node;
-//   } else {
-//     return getWebNode(node.parentElement, deep - 1);
-//   }
-// }
-
 export function selectedText(_window: Window) {
   const selection = _window.getSelection();
   return (selection?.toString() || "").trim();
 }
 
 export function isValidElement(_document: Document) {
-  // if (document.activeElement.getAttribute('contenteditable'))
-  //     return false;
-
   const invalidTags = ["INPUT", "TEXTAREA"];
   if (_document.activeElement === null) {
     return false;

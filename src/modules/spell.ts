@@ -3,9 +3,6 @@ export function spell(doc: Document) {
     doc.execCommand(command, false, value);
   const ensureHTTP = (url: string) =>
     /^https?:\//.test(url) ? url : `https://${url}`;
-  // const $ = (tag, props, children = [], elm = document.createElement(tag)) =>
-  //   children.map((child) => child && elm.appendChild(child)) &&
-  //   Object.assign(elm, props);
 
   const colorPicker = (_: any) => {
     const input = doc.createElement("input");
@@ -75,7 +72,6 @@ export function spell(doc: Document) {
       i.className = `icon-${cmd.toLowerCase()}`;
       i.addEventListener("click", control);
       button.append(i);
-      // [$("i", { className: "icon-" + cmd.toLowerCase() }), control],
       spellzone.append(button);
     });
     spellbar.append(spellzone);

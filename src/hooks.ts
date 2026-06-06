@@ -1,6 +1,5 @@
 import { config } from "../package.json";
 import { initLocale } from "./utils/locale";
-import { createZToolkit } from "./utils/ztoolkit";
 import { registerReaderInitializer } from "./modules/reader";
 import { onReady } from "./modules/options";
 import { Addon } from "./addon";
@@ -14,8 +13,6 @@ async function onStartup() {
   initLocale();
 
   Addon.registerPrefs();
-
-  // const obj = new builtin_encn_Collins();
 
   await addon.init(rootURI);
 
@@ -36,14 +33,6 @@ async function onMainWindowLoad(win: Window): Promise<void> {
     resolve(void 0);
   });
 
-  // Create ztoolkit for every window
-  addon.data.ztoolkit = createZToolkit();
-  // addon.preLoadIcons();
-
-  // await readerOpenHook();
-  // Zotero.Reader._readers.forEach(async (reader) => {
-  //   await onReaderOpened(reader);
-  // });
 }
 
 async function onMainWindowUnload(win: Window): Promise<void> {

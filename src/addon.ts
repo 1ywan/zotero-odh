@@ -29,8 +29,6 @@ export class Addon {
   public rootURI: string;
   // Lifecycle hooks
   public hooks: typeof hooks;
-  // // APIs
-  // public api: typeof api;
   public ankiconnect: Ankiconnect | null;
   public ankiweb: Ankiweb | null;
   public target: Ankiconnect | Ankiweb | null;
@@ -51,7 +49,6 @@ export class Addon {
       defaultXUL: true,
     };
     Zotero.PreferencePanes.register(prefOptions);
-    // ztoolkit.PreferencePane.register(prefOptions);
   }
 
   constructor() {
@@ -74,7 +71,6 @@ export class Addon {
     this.deinflector = null;
     this.builtin = null;
     this.options = null;
-    // this.api = api;
   }
 
   async init(rootURI: string) {
@@ -111,8 +107,6 @@ export class Addon {
   }
 
   async opt_optionsChanged(options: Option) {
-    // this.setFrontendOptions(options);
-
     switch (options.services) {
       case "none":
         this.target = null;
@@ -158,7 +152,6 @@ export class Addon {
       this.data.dictNamelist = loadresults.map((x: any) => x.result);
     }
     this.setScriptsOptions(options);
-    // optionsSave(this.options);
     return this.options;
   }
 
@@ -174,7 +167,6 @@ export class Addon {
   }
 
   async api_getBuiltin(dict: string, word: string) {
-    // const { dict, word, callbackId } = params;
     return new Promise((resolve, reject) =>
       resolve(this.builtin?.findTerm(dict, word)),
     );
@@ -334,7 +326,7 @@ export class Addon {
 }
 
 export default Addon;
-// window.odhfront = new ODHFront();
+
 export async function isConnected() {
   const result = await addon.opt_getVersion();
   return result;
