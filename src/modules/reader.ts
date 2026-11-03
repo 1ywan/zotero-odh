@@ -372,6 +372,9 @@ export function registerReaderInitializer() {
       const ele = doc.querySelector(".selection-popup") as HTMLDivElement;
       ele.style.maxWidth = "none";
 
+      addon
+        .api_getTranslation(expression)
+        .then((result: any) => {
           const translation = new Translation(optionsLoad());
           translation._document = reader._iframe!.contentDocument;
           addon.data.currentTranslation = translation;
