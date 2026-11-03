@@ -38,7 +38,7 @@
     "@types/node": "^26.0.0",
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.5.0",
-    "chokidar": "^5.0.0",
+    "chokidar": "^6.0.0",
     "compressing": "^2.0.0",
     "esbuild": "^0.28.0",
     "eslint": "^10.2.1",
